@@ -68,7 +68,7 @@ function removeLSFavoritCocktailLS(event) {
   }
 }
 
-// ====================ТЕМНАЯ ТЕМА=========================================
+// ==================== ТЕМНАЯ ТЕМА =========================================
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });
