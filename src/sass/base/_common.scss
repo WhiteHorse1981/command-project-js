@@ -1,0 +1,62 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+
+:root {
+  background-color: #FFFFFF;
+   --text-color: #2f3542;
+   --bcg-color-container: #ffffff;
+   --bcg-color-btn-input: #ffffff;
+   --color-btn-burger: #000000;
+
+}
+
+:root[theme='dark'] {
+  background-color: #2f3542;
+  --text-color: #FFFFFF;
+  --bcg-color-container: #4c4b4b;
+  --bcg-color-btn-input: #ffffff;
+  --color-btn-burger: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', 'Arial', 'Helvetica', 'sans-serif';
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul,
+li,
+ol {
+  list-style-type: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+// img {
+//   display: block;
+//   height: auto;
+// }
+
+svg {
+  display: block;
+}
