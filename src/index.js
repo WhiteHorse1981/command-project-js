@@ -28,15 +28,11 @@ const refs = {
   titleContainer1: document.querySelector('.title-1'),
   modalIngredient: document.querySelector('.modal-ingredient'),
   modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
+  boxContainerTheme: document.querySelector('.js-theme-box'),
   btnDarkTheme: document.querySelector('.js-dark-them'),
+  btnTheme1: document.querySelector('.btn-them-1'),
+  btnTheme2: document.querySelector('.btn-them-2'),
 };
-
-refs.gallery.addEventListener('click', openModalWindow);
-refs.modal.addEventListener('click', openModalWindow);
-refs.gallery.addEventListener('click', onClickCocktailBtn);
-refs.gallery.addEventListener('click', onClickCocktailBtn);
-refs.modal.addEventListener('click', onClickIngredientBtn);
-refs.titleContainer2.style.display = 'none';
 
 toggleList();
 togglemList();
@@ -66,7 +62,13 @@ refs.searchLetterCocktailMobile.addEventListener(
 );
 refs.searchLetterCocktail.addEventListener('click', onClickLetterCocktail);
 refs.gallery.addEventListener('click', saveFavoritCocktailLS);
-// refs.btnLS.addEventListener('click', saveFavoritCocktailLS);
+refs.gallery.addEventListener('click', openModalWindow);
+refs.modal.addEventListener('click', openModalWindow);
+refs.gallery.addEventListener('click', onClickCocktailBtn);
+refs.gallery.addEventListener('click', onClickCocktailBtn);
+refs.modal.addEventListener('click', onClickIngredientBtn);
+refs.titleContainer2.style.display = 'none';
+refs.boxContainerTheme.addEventListener('click', onClickTheme);
 
 function onSearchForm(event) {
   event.preventDefault();
@@ -159,3 +161,12 @@ toggleBtn.addEventListener('click', function () {
     localStorage.setItem('theme', 1);
   }
 });
+
+refs.btnTheme2.style.display = 'none';
+function onClickTheme() {
+  if ((refs.btnTheme1.style.display = 'none')) {
+    refs.btnTheme2.style.display = 'block';
+  } else {
+    refs.btnTheme2.style.display = 'none';
+  }
+}
