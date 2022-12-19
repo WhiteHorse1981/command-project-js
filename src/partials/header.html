@@ -1,59 +1,54 @@
 <header class="header">
   <div class="header__list container">
-      <nav class="nav">
-          <a href="index.html"><img src="images/header/logo.png" alt="logo"></a>
-          <ul class="nav-list">
-              <li >
-                <a class="nav-list__link" href="index.html">Home</a>
-              </li>
-              <li>
-                <a class="nav-list__link" href="#" data-list-open>Favorite</a>
-                <ul class="favorite-list" data-list>
-                  <li class="favorite-list__item-cocktails">
-                    <a href="favorites.html" class="favorite-list__link">Favorite cocktails</a>
-                  </li>
-                  <li class="favorite-list__item-ingredients">
-                    <a href="favorites.html" class="favorite-list__link">Favorite ingredients</a>
-                  </li>
-                </ul>
-              </li>
+    <nav class="nav">
+      <a href="index.html"><img src="images/header/logo.png" alt="logo"></a>
+      <ul class="nav-list">
+        <li>
+          <a class="nav-list__link" href="index.html">Home</a>
+        </li>
+        <li>
+          <a class="nav-list__link" href="#" data-list-open>Favorite</a>
+          <ul class="favorite-list" data-list>
+            <li class="favorite-list__item-cocktails">
+              <a href="favorites.html" class="favorite-list__link">Favorite cocktails</a>
+            </li>
+            <li class="favorite-list__item-ingredients">
+              <a href="favorites.html" class="favorite-list__link">Favorite ingredients</a>
+            </li>
           </ul>
-      </nav>
+        </li>
+      </ul>
+    </nav>
 
-          <div class="search-header">
+    <div class="search-header">
 
-            <form class="search-form" id="search-form">
+      <form class="search-form" id="search-form">
 
-              <button type="submit" class="search-header__btn">
-                <svg class="search-header__icon" width="20" height="20">
-                  <use href="images/header/search.svg#icon-menu"></use>
-                </svg>
-              </button>
-              <input 
-              type="text" 
-              name="searchQuery"
-              autocomplete="off" 
-              class="search-header__input" 
-              placeholder="Search">
-            </form>
-          </div>
+        <button type="submit" class="search-header__btn">
+          <svg class="search-header__icon" width="20" height="20">
+            <use href="images/header/search.svg#icon-menu"></use>
+          </svg>
+        </button>
+        <input type="text" name="searchQuery" autocomplete="off" class="search-header__input" placeholder="Search">
+      </form>
+    </div>
 
-          <div class="theme js-theme-box">
-              <span class="theme__item">Light</span>
-              <button type="button" class="theme__btn btn-primary js-dark-them" id="toggle-theme">
-                <img class="btn-them-1" id="myImage" src="images/header/toggle.png" alt="toogle">
-                <img class="btn-them-2" id="myImage" src="images/header/toogle-active.png" alt="toogle-active">
-              </button>
-              <span class="theme__item dark">Dark</span>
-          </div>
+    <div class="theme js-theme-box">
+      <form class="form-toogle">
+        <label for="highload1" data-offlabel class="lb1">Light</label>
+        <input type="checkbox" id="highload1" name="highload1">
+        <label id="toggle-theme" for="highload1" data-onlabel class="lb1 js-dark-them"></label>
+        <label for="highload1" class="lb1">Dark</label>
+      </form>
+    </div>
 
-          <button type="button" class="mobile-menu-btn" data-menu-open>
-            <svg class="mobile-menu-btn-img" width="30" height="16">
-              <use href="images/header/menu.svg#icon-menu"></use>
-            </svg>
-          </button>
+    <button type="button" class="mobile-menu-btn" data-menu-open>
+      <svg class="mobile-menu-btn-img" width="30" height="16">
+        <use href="images/header/menu.svg#icon-menu"></use>
+      </svg>
+    </button>
   </div>
-  
+
   <div class="mobile-menu" data-menu>
     <div class="container mobile-menu__container">
       <button type="button" class="mobile-menu__close-btn" data-menu-close>
@@ -64,37 +59,34 @@
 
       <a href="index.html" class="mobile-logo"><img src="images/header/logo.png" alt="logo"></a>
 
-      <div class="mobile-theme">
+      <!-- <div class="mobile-theme">
         <span class="mobile-theme__item">Light</span>
-        <button class="mobile-theme__btn"><img src="images/header/toggle.png" alt="toogle"></button>              
+        <button class="mobile-theme__btn"><img src="images/header/toggle.png" alt="toogle"></button>
         <span class="mobile-theme__item mobile-dark">Dark</span>
-    </div>
+      </div> -->
 
-    <div class="mobile-search-header">
-      <form class="search-form" id="search-form">
-        <button type="submit" class="mobile-search-header__btn">
-          <svg class="mobile-search-header__icon" width="24" height="24">
-            <use href="images/header/search.svg#icon-menu"></use>
-          </svg>
-        </button>
-        <input 
-        type="text" 
-        name="searchQuery"
-        autocomplete="off" 
-        class="mobile-search-header__input" 
-        placeholder="Search">
-      </form>
-      
-    </div>
+      <div class="mobile-search-header">
+        <form class="search-form" id="search-form">
+          <button type="submit" class="mobile-search-header__btn">
+            <svg class="mobile-search-header__icon" width="24" height="24">
+              <use href="images/header/search.svg#icon-menu"></use>
+            </svg>
+          </button>
+          <input type="text" name="searchQuery" autocomplete="off" class="mobile-search-header__input"
+            placeholder="Search">
+        </form>
+
+      </div>
 
       <nav class="mobile-nav">
         <ul class="mobile-nav-list">
-            <li class="mobile-nav-list__item">
-              <a class="mobile-nav-list__link" href="index.html">Home</a></li>
-            <li class="mobile-nav-list__item">
-              <a class="mobile-nav-list__link" data-mlist-open>Favorite 
-                <svg class="mobile-nav-list__icon" width="24" height="24">
-                  <use href="images/header/v.svg#icon-v"></use>
+          <li class="mobile-nav-list__item">
+            <a class="mobile-nav-list__link" href="index.html">Home</a>
+          </li>
+          <li class="mobile-nav-list__item">
+            <a class="mobile-nav-list__link" data-mlist-open>Favorite
+              <svg class="mobile-nav-list__icon" width="24" height="24">
+                <use href="images/header/v.svg#icon-v"></use>
               </svg>
             </a>
             <ul class="mobile-favorite-list" data-mlist>
@@ -107,7 +99,7 @@
             </ul>
           </li>
         </ul>
-    </nav>        
+      </nav>
     </div>
   </div>
 </header>

@@ -68,7 +68,6 @@ refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.titleContainer2.style.display = 'none';
-refs.boxContainerTheme.addEventListener('click', onClickTheme);
 
 function onSearchForm(event) {
   event.preventDefault();
@@ -161,12 +160,3 @@ toggleBtn.addEventListener('click', function () {
     localStorage.setItem('theme', 1);
   }
 });
-
-refs.btnTheme2.style.display = 'none';
-function onClickTheme() {
-  if ((refs.btnTheme1.style.display = 'none')) {
-    refs.btnTheme2.style.display = 'block';
-  } else {
-    refs.btnTheme2.style.display = 'none';
-  }
-}
