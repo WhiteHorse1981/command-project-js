@@ -72,7 +72,7 @@ refs.titleContainer2.style.display = 'none';
 function onSearchForm(event) {
   event.preventDefault();
   refs.gallery.innerHTML = '';
-  page = 1;
+  // page = 1;
   const query = event.currentTarget.searchQuery.value.trim();
 
   fetchCocktails(query).then(data => {
@@ -86,7 +86,7 @@ function onSearchForm(event) {
 
 function onClickCocktailBtn(event) {
   refs.modalCreateCocktail.innerHTML = '';
-  page = 1;
+  // page = 1;
   const ingredient = event.target.getAttribute('data-id');
   const { id } = event.target.dataset;
 }
@@ -103,7 +103,7 @@ function onClickIngredientBtn(event) {
 
 function onClickLetterCocktail(event) {
   refs.gallery.innerHTML = '';
-  page = 1;
+  // page = 1;
   const letter = event.target.textContent;
 
   fetchLetterCocktails(letter).then(data => {
