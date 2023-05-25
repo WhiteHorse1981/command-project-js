@@ -334,30 +334,35 @@ form.form-toogle {
   .favorite-wrapper:hover {
       opacity: 1;
     }
+  
+  .site-nav-favorite-cocktails {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    border-top: 1px solid #FD5103;
+    border-right: 1px solid #FD5103;
+    border-left: 1px solid #FD5103;
+    border-bottom: 1px solid #FD5103;
+  }
 
-  .site-nav-favorite-cocktails,
   .site-nav-favorite-ingridients {
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #000000;
-  }
-
-  .site-nav-favorite-cocktails:hover {
-    color: white;
-    background-color: #FD5103;
-    border-top: 1px solid #FD5103;
     border-right: 1px solid #FD5103;
     border-left: 1px solid #FD5103;
     border-bottom: 1px solid #FD5103;
   }
-    .site-nav-favorite-ingridients:hover {
-      color: white;
-      background-color: #FD5103;
-      border-right: 1px solid #FD5103;
-      border-left: 1px solid #FD5103;
-      border-bottom: 1px solid #FD5103;
-    }
+
+  .site-nav-favorite-cocktails:hover,
+  .site-nav-favorite-ingridients:hover {
+    color: white;
+    background-color: #FD5103;
+ 
+  }
 
 }
