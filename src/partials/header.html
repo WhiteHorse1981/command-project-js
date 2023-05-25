@@ -1,21 +1,22 @@
 <header class="header">
   <div class="header__list container">
+    <a href="index.html"><img src="images/header/logo.png" alt="logo"></a>
     <nav class="nav">
-      <a href="index.html"><img src="images/header/logo.png" alt="logo"></a>
+      
       <ul class="nav-list">
         <li>
           <a class="nav-list__link" href="index.html">Home</a>
         </li>
-        <li>
-          <a class="nav-list__link" href="#" data-list-open>Favorite</a>
-          <ul class="favorite-list" data-list>
-            <li class="favorite-list__item-cocktails">
-              <a href="favorites.html" class="favorite-list__link">Favorite cocktails</a>
-            </li>
-            <li class="favorite-list__item-ingredients">
-              <a href="favorites.html" class="favorite-list__link">Favorite ingredients</a>
-            </li>
-          </ul>
+        
+
+        <li class="site-nav__item item site-nav-favorite-wrapper">
+          <span>Favorite</span>
+          <div class="favorite-wrapper">
+            <a href="favorites.html" class="site-nav__link link site-nav-favorite-cocktails">Favorite
+              cocktails</a>
+            <a href="favorites.html" class="site-nav__link link site-nav-favorite-ingridients">Favorite
+              ingridients</a>
+          </div>
         </li>
       </ul>
     </nav>

@@ -219,7 +219,11 @@ form.form-toogle {
     align-items: flex-end;
     column-gap: 60px;
     margin-left: 43px;
+    margin-top: 22px;
   }
+    .nav-list li>a, .nav-list li>span {
+      font-size: 20px;
+    }
 
   .nav-list__link {
     position: relative;
@@ -309,6 +313,44 @@ form.form-toogle {
 
   .search-header__input {
     padding-left: 15px;
+  }
+
+  // .site-nav__item {
+  //   margin-left: 45px;
+  //   margin-top: 40px;
+  // }
+
+  .site-nav-favorite-wrapper {
+    position: relative;
+  }
+
+  .favorite-wrapper {
+    opacity: 0;
+    position: absolute;
+    top: 20px;
+    width: 210px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid orange;
+  }
+
+    .favorite-wrapper:hover {
+      opacity: 1;
+    }
+
+  .site-nav-favorite-cocktails,
+  .site-nav-favorite-ingridients {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .site-nav-favorite-cocktails:hover,
+  .site-nav-favorite-ingridients:hover {
+    color: white;
+    background-color: orange;
   }
 
 }
