@@ -320,15 +320,15 @@ form.form-toogle {
   }
 
   .favorite-wrapper {
-  opacity: 0;
-  width: 210px;
-  height: 140px;
-  border: 1px solid orange;
-  flex-direction: column;
-  display: flex;
-  position: absolute;
-  top: -20px;
-  padding-top: 40px;
+    opacity: 0;
+    width: 210px;
+    height: 140px;
+    flex-direction: column;
+    display: flex;
+    position: absolute;
+    top: -20px;
+    padding-top: 40px;
+    cursor: pointer;
   }
 
   .favorite-wrapper:hover {
@@ -341,12 +341,23 @@ form.form-toogle {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #000000;
   }
 
-  .site-nav-favorite-cocktails:hover,
-  .site-nav-favorite-ingridients:hover {
+  .site-nav-favorite-cocktails:hover {
     color: white;
-    background-color: orange;
+    background-color: #FD5103;
+    border-top: 1px solid #FD5103;
+    border-right: 1px solid #FD5103;
+    border-left: 1px solid #FD5103;
+    border-bottom: 1px solid #FD5103;
   }
+    .site-nav-favorite-ingridients:hover {
+      color: white;
+      background-color: #FD5103;
+      border-right: 1px solid #FD5103;
+      border-left: 1px solid #FD5103;
+      border-bottom: 1px solid #FD5103;
+    }
 
 }

@@ -11,7 +11,6 @@ import {
   createMarkup,
   createMarkupDesktop,
 } from './js/createCocktail';
-import { toggleList, togglemList } from './js/openMenuAndFavorite.js';
 
 import { openModalWindow } from './js/modalWindow.js';
 
@@ -33,9 +32,6 @@ const refs = {
   btnTheme1: document.querySelector('.btn-them-1'),
   btnTheme2: document.querySelector('.btn-them-2'),
 };
-
-toggleList();
-togglemList();
 
 window.addEventListener('load', () => {
   fetchRandomCocktails().then(data => {

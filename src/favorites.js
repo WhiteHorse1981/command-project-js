@@ -3,8 +3,6 @@ import { loadFromLS, removeFromLS, saveToLS } from './js/localSt.js';
 
 import { createCocktail } from './js/createCocktail';
 
-// import { toggleList, togglemList } from './js/openMenuAndFavorite.js';
-
 const refs = {
   searchForm: document.querySelector('#search-form'),
   gallery: document.querySelector('.gallery'),
@@ -81,11 +79,13 @@ function init() {
 }
 const toggleBtn = document.querySelector('#toggle-theme');
 toggleBtn.addEventListener('click', function () {
+  console.log(localStorage.setItem('theme', '"15151551551"'));
   if (document.documentElement.hasAttribute('theme')) {
     document.documentElement.removeAttribute('theme');
     localStorage.removeItem('theme');
   } else {
     document.documentElement.setAttribute('theme', 'dark');
+
     localStorage.setItem('theme', 1);
   }
 });
