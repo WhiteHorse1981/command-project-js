@@ -84,8 +84,12 @@ toggleBtn.addEventListener('click', function () {
     document.documentElement.removeAttribute('theme');
     localStorage.removeItem('theme');
   } else {
-    document.documentElement.setAttribute('theme', 'dark');
+    document.querySelectorAll('.checkboxBtn').forEach(el => {
+      el.onchange = () => localStorage.setItem(el.id, el.checked);
+      el.checked = localStorage.getItem(el.id === 'true');
+    });
 
+    document.documentElement.setAttribute('theme', 'dark');
     localStorage.setItem('theme', 1);
   }
 });

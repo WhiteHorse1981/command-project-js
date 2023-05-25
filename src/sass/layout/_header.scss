@@ -86,7 +86,7 @@ form.form-toogle {
 
 #highload1:checked+.lb1::before {
   content: attr(data-onlabel);
-  left: 16px;
+  left: 20px;
   right: auto;
   color: #fff;
 }
