@@ -315,11 +315,6 @@ form.form-toogle {
     padding-left: 15px;
   }
 
-  // .site-nav__item {
-  //   margin-left: 45px;
-  //   margin-top: 40px;
-  // }
-
   .site-nav-favorite-wrapper {
     position: relative;
   }
@@ -335,7 +330,7 @@ form.form-toogle {
     border: 1px solid orange;
   }
 
-    .favorite-wrapper:hover {
+    .site-nav-favorite-wrapper span:hover {
       opacity: 1;
     }
 
