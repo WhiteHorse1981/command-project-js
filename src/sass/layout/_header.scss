@@ -137,7 +137,7 @@ body.mouse .site-nav-favorite-wrapper:hover .favorite-wrapper {
 }
 
 body.mouse .site-nav-favorite-wrapper:hover .arrow {
-  background-color: #fff;
+  // background-color: #fff;
   border-top: 10px solid #fd5103;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
@@ -276,7 +276,6 @@ div.icons-all {
   .favorite-wrapper {
     opacity: 0;
     width: 210px;
-    height: 140px;
     flex-direction: column;
     display: flex;
     position: absolute;
