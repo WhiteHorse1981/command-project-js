@@ -7,6 +7,10 @@
 
 @media screen and (min-width: 320px) {
 
+  .container {
+      width: 320px;
+    }
+
   .title-error {
     width: 280px;
     font-style: normal;
@@ -24,12 +28,6 @@
     margin-top: 30px;
     background-size: contain;
     background-image: url(../images/error-img.png);
-  }
-
-  .container {
-    width: 320px;
-    padding-left: 15px;
-    padding-right: 15px;
   }
 
   .cocktails-container__header {
@@ -130,12 +128,26 @@
     background-color: #FE7031;
     color: #FFFFFF;
   }
+
+  .info-btn-descr {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    background-color: #FE7031;
+    border-radius: 4px;
+    margin-right: 16px;
+    border: none;
+  }
 }
 
 @media screen and (min-width: 480px) {
   .container {
     width: 480px;
   }
+
 }
 
 @media screen and (min-width: 768px) {
@@ -202,6 +214,10 @@
     width: 345px;
     height: 380px;
   }
+
+  .info-btn-descr {
+    padding: 12px 30px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -232,8 +248,9 @@
 }
 
 .cocktails-container {
-  margin-top: 60px;
+  margin-top: 110px;
   margin-bottom: 60px;
+  min-height: 100%;
 }
 
 .gallery,
@@ -290,23 +307,12 @@
 .add-favorite:focus {
   transform: scale(1.05);
   transition: all 0.3s;
-}
-
-.info-btn-descr {
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  color: #FFFFFF;
-  padding: 12px 30px;
-  background-color: #FE7031;
-  border-radius: 4px;
-  margin-right: 16px;
-  border: none;
+  background-color: #fe7031;
+  color: #fff;
 }
 
 .add-favorite {
-  border: 2px solid #FD5103;
+  border: 2px solid #fe7031;
   border-radius: 4px;
   display: flex;
   flex-wrap: column;
@@ -338,7 +344,7 @@
 }
 
 .btn-load-more {
-  display: block;
+  display: block; 
   margin: 25px auto 0 auto;
   padding: 8px 20px;
   border: none;
@@ -378,4 +384,15 @@
 .btn-to-top:hover {
   background-color: #c3c3c3;
   transition: all 0.3s;
+}
+
+.title-favorite-cocktails {
+  font-size: 25px;
+  font-weight: 500;
+  color: var(--text-color);
+   
+}
+
+.icon-svg {
+  margin-left: 5px;
 }

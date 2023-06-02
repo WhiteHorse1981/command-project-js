@@ -3,7 +3,11 @@ const markupDesktop = document.querySelector('.list-cocktail');
 
 // ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ПО ПОИСКУ=======================
 export function createCocktail(images) {
-  const svg = document.querySelector('.add-favorite__icon use').href.baseVal;
+  const iconHeart1 = document.querySelector('.div-icon-heart1');
+  const iconHeart2 = document.querySelector('.div-icon-heart2');
+  const useHeart1 = iconHeart1.href.baseVal;
+  const useHeart2 = iconHeart2.href.baseVal;
+
   const markup = images
     .map(image => {
       const { strDrinkThumb, strImageAttribution, strDrink, idDrink } = image;
@@ -20,21 +24,20 @@ export function createCocktail(images) {
                   <button type="button" class="info-btn-descr info-btn js-learn-btn" data-modal-open="${strDrink}" data-id="${idDrink}">Learn more</button>
                 
                 
-                  <button type="button" class="add-descr add-favorite js_btn_fav_add" data-cocktail-name="${strDrink}">
+                  <button type="button" data-id="${idDrink}" class="add-descr add-favorite js_btn_fav_add" data-cocktail-name="${strDrink}">
                   Add to
                 
-                  <svg class="add-favorite__icon" width=21 height=19>
-                      <use href="${svg}"></use>
-                    </svg>
-             
-                    
+                  <svg class="icon-svg" width="17" height="16">
+                    <use class="use-heart1" href='${useHeart1}'></use>
+                  </svg>
+                            
                   </button>
-                   <button type="button" class="add-descr add-favorite js_btn_fav_remove" data-cocktail-name-remove="${strDrink}">
+                   <button type="button" id=${idDrink} class="add-descr add-favorite js_btn_fav_remove" data-cocktail-name-remove="${strDrink}">
                   Remove
                     
-                      <svg class="add-favorite__icon" width=21 height=19>
-                          <use href="${svg}"></use>
-                      </svg>
+                  <svg class="icon-svg" width="17" height="16">
+                    <use class="use-heart1" href='${useHeart2}'></use>
+                  </svg>
                 
                   </button>
                
@@ -47,7 +50,6 @@ export function createCocktail(images) {
     .join('');
   const gallery = document.querySelector('.gallery');
   gallery.insertAdjacentHTML('beforeend', markup);
-  document.getElementById('opacity').style.opacity = '0';
 }
 
 // ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ИНГРИДИЕНТОВ В МОДАЛЬНОМ ОКНЕ=======================

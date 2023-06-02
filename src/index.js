@@ -14,8 +14,11 @@ import {
 
 import { openModalWindow } from './js/modalWindow.js';
 
+import callMobileMenu from './js/menuMobileOpen.js';
+
 const refs = {
   searchForm: document.querySelector('#search-form'),
+  searchFormMobile: document.querySelector('#mobile-search-form'),
   gallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.btn-load-more'),
   searchLetterCocktailMobile: document.querySelector('.js-letter-cocktail-1'),
@@ -33,6 +36,13 @@ const refs = {
   btnTheme2: document.querySelector('.btn-them-2'),
 };
 
+//====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
+callMobileMenu();
+// ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (ВЫПЫДАЮЩИЙ СПИСОК)============================
+createMarkup();
+// ====================ФУНКЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ДЛЯ DEKSTOP, TABLET==============================================
+createMarkupDesktop();
+// ====================ВЫВОД РАНДОМНЫХ КОКТЕЙЛЕЙ====================================================================
 window.addEventListener('load', () => {
   fetchRandomCocktails().then(data => {
     // console.log(data.drinks);
@@ -44,14 +54,9 @@ window.addEventListener('load', () => {
     }
   });
 });
-// ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (ВЫПЫДАЮЩИЙ СПИСОК)============================
-createMarkup();
-// ====================ФУНКЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ДЛЯ DEKSTOP, TABLET==============================================
-createMarkupDesktop();
-// ====================ВЫВОД РАНДОМНЫХ КОКТЕЙЛЕЙ====================================================================
-
 // =======================LISTENER =================================================================================
 refs.searchForm.addEventListener('submit', onSearchForm);
+refs.searchFormMobile.addEventListener('submit', searchFormMobile);
 refs.searchLetterCocktailMobile.addEventListener(
   'click',
   onClickLetterCocktail
@@ -66,6 +71,20 @@ refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.titleContainer2.style.display = 'none';
 
 function onSearchForm(event) {
+  event.preventDefault();
+  refs.gallery.innerHTML = '';
+  // page = 1;
+  const query = event.currentTarget.searchQuery.value.trim();
+
+  fetchCocktails(query).then(data => {
+    createCocktail(data.drinks);
+    const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
+    for (let btn of btnRemove) {
+      btn.style.display = 'none';
+    }
+  });
+}
+function searchFormMobile(event) {
   event.preventDefault();
   refs.gallery.innerHTML = '';
   // page = 1;
@@ -104,18 +123,18 @@ function onClickLetterCocktail(event) {
 
   fetchLetterCocktails(letter).then(data => {
     if (data.drinks === null) {
-      // console.log(123);
       refs.titleContainer1.style.display = 'none';
       refs.gallery.innerHTML =
         "<div><h2 class='title-error'>Sorry, we didn't find any cocktail for you</h2><div class='containerImg'></div></div >";
-      // <img src='./images/error-img.jpg'></img>
     } else {
       createCocktail(data.drinks);
+      // saveFavoritCocktailLS();
     }
     const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
+    // addSvgUseHearts();
   });
 
   // fetchLetterCocktails(letter).then(data => {
@@ -130,9 +149,22 @@ function onClickLetterCocktail(event) {
 // =====================================================
 
 function saveFavoritCocktailLS(event) {
-  const cocktailName = event.target.getAttribute('data-cocktail-name');
+  let cocktailName = [];
+  cocktailName = event.target.getAttribute('data-cocktail-name');
+
+  // cocktails.push(index);
   // console.log(cocktailName);
   saveToLS('FavoriteCocktails', cocktailName);
+
+  // localStorage.setItem('FavoriteCocktails', JSON.stringify(cocktails));
+
+  // if (!cocktails.includes(cocktailName)) {
+  //   cocktails.push(cocktailName);
+  //   localStorage.setItem('FavoriteCocktails', cocktails);
+  // } else {
+  //   cocktails.splice(cocktails.indexOf(cocktailName), 1);
+  //   localStorage.setItem('FavoriteCocktails', cocktails);
+  // }
 }
 
 // ====================ТЕМНАЯ ТЕМА=========================================
@@ -161,3 +193,60 @@ toggleBtn.addEventListener('click', function () {
     localStorage.setItem('theme', 'black');
   }
 });
+
+// function addSvgUseHearts() {
+//   const addBtnsSvg = document.querySelectorAll('.card-btn__add svg');
+//   for (let svg of addBtnsSvg) {
+//     svg.innerHTML = `<use class="use-heart1" href='${useHeart1}'></use>`;
+//   }
+//   const removeBtnsSvg = document.querySelectorAll('.card-btn__remove svg');
+//   for (let svg of removeBtnsSvg) {
+//     svg.innerHTML = `<use class="use-heart1" href='${useHeart2}'></use>`;
+//   }
+// }
+
+//============ Скрипт меню открытия с помощью тачкрина на планшетах и мобильных устройствах =====//
+let isMobile = {
+  Android: function () {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function () {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function () {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function () {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function () {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function () {
+    return (
+      isMobile.Android() ||
+      isMobile.BlackBerry() ||
+      isMobile.iOS() ||
+      isMobile.Opera() ||
+      isMobile.Windows()
+    );
+  },
+};
+let body = document.querySelector('body');
+if (isMobile.any()) {
+  body.classList.add('touch');
+  let arrow = document.querySelectorAll('.arrow');
+  for (i = 0; i < arrow.length; i++) {
+    let thisLink = arrow[i].previousElementSibling;
+    let subMenu = arrow[i].nextElementSibling;
+    let thisArrow = arrow[i];
+
+    thisLink.classList.add('parent');
+    arrow[i].addEventListener('click', function () {
+      subMenu.classList.toggle('open');
+      thisArrow.classList.toggle('active');
+    });
+  }
+} else {
+  body.classList.add('mouse');
+}

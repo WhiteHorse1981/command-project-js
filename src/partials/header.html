@@ -10,21 +10,26 @@
         
 
         <li class="site-nav__item item site-nav-favorite-wrapper">
-          <span>Favorite</span>
-          <div class="favorite-wrapper">
-            <a href="favorites.html" class="site-nav__link link site-nav-favorite-cocktails">Favorite
+          <!-- <a class="nav-list__link list link-favorit" href="">Favorite</a> -->
+          <span class="nav-list__link list link-favorit" href="#">Favorite</span>
+          <span class="arrow menu-arrow"></span>
+          <ul class="favorite-wrapper">
+            <li class="favorite-wrapper-item">
+              <a href="favorites.html" class="site-nav__link link site-nav-favorite-cocktails">Favorite
               cocktails</a>
-            <a href="favorites.html" class="site-nav__link link site-nav-favorite-ingridients">Favorite
-              ingridients</a>
-          </div>
+            </li>
+            <li class="favorite-wrapper-item">
+              <a href="favorites.html" class="site-nav__link link site-nav-favorite-ingridients">Favorite
+                ingridients</a>
+            </li>
+            
+          </ul>
         </li>
       </ul>
     </nav>
 
     <div class="search-header">
-
       <form class="search-form" id="search-form">
-
         <button type="submit" class="search-header__btn">
           <svg class="search-header__icon" width="20" height="20">
             <use href="images/header/search.svg#icon-menu"></use>
@@ -43,64 +48,59 @@
       </form>
     </div>
 
-    <button type="button" class="mobile-menu-btn" data-menu-open>
+    <div class="menu__icon">
+      <span></span>
+    </div>
+
+    <!-- <button type="button" class="mobile-menu-btn" data-menu-open>
       <svg class="mobile-menu-btn-img" width="30" height="16">
         <use href="images/header/menu.svg#icon-menu"></use>
       </svg>
-    </button>
+    </button> -->
   </div>
 
-  <div class="mobile-menu" data-menu>
+  <div class="mobile-menu">
     <div class="container mobile-menu__container">
-      <button type="button" class="mobile-menu__close-btn" data-menu-close>
-        <svg class="mobile-menu__close-item" width="32" height="32">
-          <use href="images/header/close-btn.svg#close"></use>
-        </svg>
-      </button>
-
-      <a href="index.html" class="mobile-logo"><img src="images/header/logo.png" alt="logo"></a>
-
-      <!-- <div class="mobile-theme">
-        <span class="mobile-theme__item">Light</span>
-        <button class="mobile-theme__btn"><img src="images/header/toggle.png" alt="toogle"></button>
-        <span class="mobile-theme__item mobile-dark">Dark</span>
-      </div> -->
-
-      <div class="mobile-search-header">
-        <form class="search-form" id="search-form">
-          <button type="submit" class="mobile-search-header__btn">
-            <svg class="mobile-search-header__icon" width="24" height="24">
+     <div class="mobile-search-header">
+        <form class="search-form" id="mobile-search-form">
+          <button type="submit" class="mobile-search-header__btn search-header__btn">
+            <svg class="mobile-search-header__icon" width="20" height="20">
               <use href="images/header/search.svg#icon-menu"></use>
             </svg>
           </button>
-          <input type="text" name="searchQuery" autocomplete="off" class="mobile-search-header__input"
-            placeholder="Search">
+          <input type="text" name="searchQuery" autocomplete="off" class="mobile-search-header__input search-header__input" placeholder="Search">
         </form>
-
       </div>
-
+  
       <nav class="mobile-nav">
         <ul class="mobile-nav-list">
           <li class="mobile-nav-list__item">
             <a class="mobile-nav-list__link" href="index.html">Home</a>
           </li>
-          <li class="mobile-nav-list__item">
-            <a class="mobile-nav-list__link" data-mlist-open>Favorite
-              <svg class="mobile-nav-list__icon" width="24" height="24">
-                <use href="images/header/v.svg#icon-v"></use>
-              </svg>
-            </a>
-            <ul class="mobile-favorite-list" data-mlist>
+          <li class="mobile-nav-list__item mobile-nav-list__item-favorite-wrapper">
+            <span class="nav-list__link list link-favorit" href="#">Favorite</span>
+            <span class="arrow menu-arrow"></span>
+            <ul class="mobile-favorite-list">
               <li class="mobile-favorite-list__item-cocktails">
-                <a href="favorites.html" class="mobile-favorite-list__link">Favorite cocktails</a>
+                <a href="favorites.html" class="mobile-favorite-list__link-cocktails">Favorite cocktails</a>
               </li>
               <li class="mobile-favorite-list__item-ingredients">
-                <a href="favorites.html" class="mobile-favorite-list__link">Favorite ingredients</a>
+                <a href="favorites.html" class="mobile-favorite-list__link-ingredients">Favorite ingredients</a>
               </li>
             </ul>
           </li>
         </ul>
       </nav>
     </div>
+  </div>
+
+  <!-- Спрятанные SVG -->
+  <div class="icons-all">
+    <svg>
+      <use href="./images/symbol-defs.svg#icon-heart" class="div-icon-heart1"></use>
+    </svg>
+    <svg>
+      <use href="./images/symbol-defs.svg#icon-heart2" class="div-icon-heart2"></use>
+    </svg>
   </div>
 </header>

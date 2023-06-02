@@ -24,12 +24,8 @@ export function loadFromLS(key) {
     return item;
   }
 }
-export function removeFromLS(key) {
-  const item = localStorage.removeItem(key);
-  try {
-    const parseItem = JSON.parse(item);
-    return parseItem;
-  } catch {
-    return item;
-  }
+export function removeFromLS(key, value) {
+  let arrayFromLocalStorage = JSON.parse(localStorage.getItem(key));
+  arrayFromLocalStorage.splice(value, 1);
+  localStorage.setItem(key, JSON.stringify(arrayFromLocalStorage));
 }

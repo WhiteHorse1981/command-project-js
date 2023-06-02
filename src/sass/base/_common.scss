@@ -4,8 +4,10 @@
   background-color: #FFFFFF;
   --text-color: #2f3542;
   --bcg-color-container: #ffffff;
+  --bcg-color-container-mobile: #ffffff;
   --bcg-color-btn-input: #ffffff;
   --color-btn-burger: #000000;
+ 
 
 }
 
@@ -13,11 +15,12 @@
   background-color: #2f3542;
   --text-color: #FFFFFF;
   --bcg-color-container: #4c4b4b;
+  --bcg-color-container-mobile: #202025;
   --bcg-color-btn-input: #ffffff;
   --color-btn-burger: #ffffff;
 }
 
-body {
+body, html {
   font-family: 'Poppins', 'Arial', 'Helvetica', 'sans-serif';
   height: 100%;
 }

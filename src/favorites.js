@@ -1,8 +1,9 @@
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
 import { loadFromLS, removeFromLS, saveToLS } from './js/localSt.js';
-
 import { createCocktail } from './js/createCocktail';
+import callMobileMenu from './js/menuMobileOpen.js';
 
+// =======================LISTENER =========================================================
 const refs = {
   searchForm: document.querySelector('#search-form'),
   gallery: document.querySelector('.gallery'),
@@ -14,51 +15,71 @@ const refs = {
   titleContainer1: document.querySelector('.title-1'),
 };
 
-const cocktails = [];
-
-// =======================LISTENER =========================================================
 refs.searchForm.addEventListener('submit', onSearchForm);
 refs.titleContainer1.style.display = 'none';
 refs.gallery.addEventListener('click', removeLSFavoritCocktailLS);
+
 // ======================================================================================
+
+//====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
+callMobileMenu();
+
 function onSearchForm(event) {
   event.preventDefault();
 }
 
+// window.addEventListener('load', loadLSCocktails);
+
+let cocktailsFavorites = [];
+
 function loadLSCocktails() {
-  const arr = loadFromLS('FavoriteCocktails');
+  let arr = loadFromLS('FavoriteCocktails');
+  // const galleryContainer = refs.gallery;
+  // console.log(galleryContainer);
+
   const fetches = arr.map(cocktailName => {
     return fetch(`${BASE_URL}s=${cocktailName}`).then(res => res.json());
   });
-  Promise.all(fetches).then(arr => {
-    arr = arr.map(obj => {
-      return obj.drinks[0];
-    });
-    cocktails.push(...arr);
-    //console.log(arr);
-    createCocktail(cocktails);
 
-    const btnAdd = document.querySelectorAll('.js_btn_fav_add');
-    for (let btn of btnAdd) {
-      btn.style.display = 'none';
-    }
-  });
+  if (!arr || arr?.length === 0) {
+    refs.gallery.innerHTML =
+      "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
+  } else {
+    Promise.all(fetches).then(arr => {
+      arr = arr.map(obj => {
+        return obj.drinks[0];
+      });
+      cocktailsFavorites.push(...arr);
+      //console.log(arr);
+      createCocktail(cocktailsFavorites);
+
+      const btnAdd = document.querySelectorAll('.js_btn_fav_add');
+      for (let btn of btnAdd) {
+        btn.style.display = 'none';
+      }
+      // addSvgUseHearts();
+    });
+  }
 }
+
 loadLSCocktails();
 
 function removeLSFavoritCocktailLS(event) {
   const cocktailNameRemove = event.target.getAttribute(
     'data-cocktail-name-remove'
   );
-  removeFromLS(cocktailNameRemove);
-  const index = cocktails.findIndex(
+
+  const index = cocktailsFavorites.findIndex(
     ({ strDrink }) => strDrink === cocktailNameRemove
   );
-  cocktails.splice(index, 1);
+
+  cocktailsFavorites.splice(index, 1);
 
   refs.gallery.innerHTML = '';
-  // console.log(arr);
-  createCocktail(cocktails);
+
+  createCocktail(cocktailsFavorites);
+
+  removeFromLS('FavoriteCocktails', cocktailNameRemove);
 
   const btnAdd = document.querySelectorAll('.js_btn_fav_add');
   for (let btn of btnAdd) {
@@ -79,7 +100,6 @@ function init() {
 }
 const toggleBtn = document.querySelector('#toggle-theme');
 toggleBtn.addEventListener('click', function () {
-  console.log(localStorage.setItem('theme', '"15151551551"'));
   if (document.documentElement.hasAttribute('theme')) {
     document.documentElement.removeAttribute('theme');
     localStorage.removeItem('theme');
@@ -90,6 +110,66 @@ toggleBtn.addEventListener('click', function () {
     });
 
     document.documentElement.setAttribute('theme', 'dark');
-    localStorage.setItem('theme', 1);
+    localStorage.setItem('theme', 'black');
   }
 });
+
+//================  SVG  =====================================//
+
+// function addSvgUseHearts() {
+//   const addBtnsSvg = document.querySelectorAll('.card-btn__add svg');
+//   for (let svg of addBtnsSvg) {
+//     svg.innerHTML = `<use class="use-heart1" href='${useHeart1}'></use>`;
+//   }
+//   const removeBtnsSvg = document.querySelectorAll('.card-btn__remove svg');
+//   for (let svg of removeBtnsSvg) {
+//     svg.innerHTML = `<use class="use-heart1" href='${useHeart2}'></use>`;
+//   }
+// }
+
+//============ Скрипт меню открытия с помощью тачcкрина на планшетах и мобильных устройствах =====//
+let isMobile = {
+  Android: function () {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function () {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function () {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function () {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function () {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function () {
+    return (
+      isMobile.Android() ||
+      isMobile.BlackBerry() ||
+      isMobile.iOS() ||
+      isMobile.Opera() ||
+      isMobile.Windows()
+    );
+  },
+};
+let body = document.querySelector('body');
+if (isMobile.any()) {
+  body.classList.add('touch');
+  let arrow = document.querySelectorAll('.arrow');
+  for (i = 0; i < arrow.length; i++) {
+    let thisLink = arrow[i].previousElementSibling;
+    let subMenu = arrow[i].nextElementSibling;
+    let thisArrow = arrow[i];
+
+    thisLink.classList.add('parent');
+    arrow[i].addEventListener('click', function () {
+      subMenu.classList.toggle('open');
+      thisArrow.classList.toggle('active');
+    });
+  }
+} else {
+  body.classList.add('mouse');
+}
+//========================================================//
