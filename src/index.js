@@ -34,6 +34,7 @@ const refs = {
   btnDarkTheme: document.querySelector('.js-dark-them'),
   btnTheme1: document.querySelector('.btn-them-1'),
   btnTheme2: document.querySelector('.btn-them-2'),
+  arrow: document.querySelector('.arrow'),
 };
 
 //====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
@@ -68,6 +69,7 @@ refs.modal.addEventListener('click', openModalWindow);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.modal.addEventListener('click', onClickIngredientBtn);
+refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.titleContainer2.style.display = 'none';
 
 function onSearchForm(event) {
@@ -232,21 +234,24 @@ let isMobile = {
     );
   },
 };
+
 let body = document.querySelector('body');
 if (isMobile.any()) {
   body.classList.add('touch');
-  let arrow = document.querySelectorAll('.arrow');
-  for (i = 0; i < arrow.length; i++) {
-    let thisLink = arrow[i].previousElementSibling;
-    let subMenu = arrow[i].nextElementSibling;
-    let thisArrow = arrow[i];
-
-    thisLink.classList.add('parent');
-    arrow[i].addEventListener('click', function () {
-      subMenu.classList.toggle('open');
-      thisArrow.classList.toggle('active');
-    });
-  }
 } else {
   body.classList.add('mouse');
+}
+
+// let arrow = document.querySelectorAll('.arrow');
+// arrow.addEventListener('click', () => {
+//   subMenu.classList.toggle('open');
+//   thisArrow.classList.toggle('active');
+// });
+
+function onClickMenuHeader() {
+  const subMenu = document.querySelector('.favorite-wrapper');
+  const thisArrow = document.querySelector('.menu-arrow');
+
+  subMenu.classList.toggle('open');
+  thisArrow.classList.toggle('active');
 }

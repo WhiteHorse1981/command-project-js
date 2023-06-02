@@ -13,11 +13,13 @@ const refs = {
   favoritCocktails: document.querySelector('.favorit'),
   btnLS: document.querySelector('.add-descr'),
   titleContainer1: document.querySelector('.title-1'),
+  arrow: document.querySelector('.arrow'),
 };
 
 refs.searchForm.addEventListener('submit', onSearchForm);
 refs.titleContainer1.style.display = 'none';
 refs.gallery.addEventListener('click', removeLSFavoritCocktailLS);
+refs.arrow.addEventListener('click', onClickMenuHeader);
 
 // ======================================================================================
 
@@ -154,22 +156,38 @@ let isMobile = {
     );
   },
 };
+
+// let body = document.querySelector('body');
+// if (isMobile.any()) {
+//   body.classList.add('touch');
+//   let arrow = document.querySelectorAll('.arrow');
+//   for (i = 0; i < arrow.length; i++) {
+//     let thisLink = arrow[i].previousElementSibling;
+//     let subMenu = arrow[i].nextElementSibling;
+//     let thisArrow = arrow[i];
+
+//     // thisLink.classList.add('parent');
+//     arrow[i].addEventListener('click', function () {
+//       subMenu.classList.toggle('open');
+//       thisArrow.classList.toggle('active');
+//     });
+//   }
+// } else {
+//   body.classList.add('mouse');
+// }
+
 let body = document.querySelector('body');
 if (isMobile.any()) {
   body.classList.add('touch');
-  let arrow = document.querySelectorAll('.arrow');
-  for (i = 0; i < arrow.length; i++) {
-    let thisLink = arrow[i].previousElementSibling;
-    let subMenu = arrow[i].nextElementSibling;
-    let thisArrow = arrow[i];
-
-    thisLink.classList.add('parent');
-    arrow[i].addEventListener('click', function () {
-      subMenu.classList.toggle('open');
-      thisArrow.classList.toggle('active');
-    });
-  }
 } else {
   body.classList.add('mouse');
+}
+
+function onClickMenuHeader() {
+  const subMenu = document.querySelector('.favorite-wrapper');
+  const thisArrow = document.querySelector('.menu-arrow');
+
+  subMenu.classList.toggle('open');
+  thisArrow.classList.toggle('active');
 }
 //========================================================//

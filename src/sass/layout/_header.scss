@@ -102,32 +102,32 @@ form.form-toogle {
   color: #fff;
 }
 
-  #highload1+.lb1 {
-    border: 1px solid #FD5103;
-    display: inline-block;
-    position: relative;
-    width: 32px;
-    height: 15px;
-    border-radius: 30px;
-    cursor: pointer;
-  }
+#highload1+.lb1 {
+  border: 1px solid #FD5103;
+  display: inline-block;
+  position: relative;
+  width: 32px;
+  height: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+}
 
-  #highload1+.lb1::after {
-    border-radius: 50%;
-    content: '';
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    background-color: #FD5103;
-  }
+#highload1+.lb1::after {
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 11px;
+  height: 11px;
+  background-color: #FD5103;
+}
 
-  .lb1 {
-    color: var(--text-color);
-    margin-left: 8px;
-    font-size: 14px;
-  }
+.lb1 {
+  color: var(--text-color);
+  margin-left: 8px;
+  font-size: 14px;
+}
 
 
 body.mouse .site-nav-favorite-wrapper:hover .favorite-wrapper {
@@ -137,10 +137,9 @@ body.mouse .site-nav-favorite-wrapper:hover .favorite-wrapper {
 }
 
 body.mouse .site-nav-favorite-wrapper:hover .arrow {
-  // background-color: #fff;
-  border-top: 10px solid #fd5103;
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
+  border-top: 8px solid #fd5103;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
   transition: border-top .25s cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -336,27 +335,27 @@ div.icons-all {
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .favorite-list__item-cocktails {
-    padding-top: 11px;
-    padding-left: 12px;
-    padding-bottom: 12px;
-  }
+  // .favorite-list__item-cocktails {
+  //   padding-top: 11px;
+  //   padding-left: 12px;
+  //   padding-bottom: 12px;
+  // }
 
-  .favorite-list__item-cocktails:hover {
-    background-color: #FD5103;
-  }
+  // .favorite-list__item-cocktails:hover {
+  //   background-color: #FD5103;
+  // }
 
-  .favorite-list__item-ingredients {
-    padding-top: 11px;
-    padding-left: 12px;
-    padding-bottom: 11px;
-    border-top: 1px solid #FD5103;
-    color: #FFF;
-  }
+  // .favorite-list__item-ingredients {
+  //   padding-top: 11px;
+  //   padding-left: 12px;
+  //   padding-bottom: 11px;
+  //   border-top: 1px solid #FD5103;
+  //   color: #FFF;
+  // }
 
-  .favorite-list__item-ingredients:hover {
-    background-color: #FD5103;
-  }
+  // .favorite-list__item-ingredients:hover {
+  //   background-color: #FD5103;
+  // }
 
   .nav {
     display: flex;
