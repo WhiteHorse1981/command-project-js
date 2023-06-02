@@ -1,7 +1,7 @@
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
 import { loadFromLS, removeFromLS, saveToLS } from './js/localSt.js';
 import { createCocktail } from './js/createCocktail';
-import callMobileMenu from './js/menuMobileOpen.js';
+import { callMobileMenu } from './js/menuMobileOpen.js';
 
 // =======================LISTENER =========================================================
 const refs = {
