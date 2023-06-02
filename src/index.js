@@ -14,7 +14,8 @@ import {
 
 import { openModalWindow } from './js/modalWindow.js';
 
-import callMobileMenu from './js/menuMobileOpen.js';
+import { callMobileMenu } from './js/menuMobileOpen.js';
+import { disableMobileMenuSearch } from './js/menuMobileOpen.js';
 
 const refs = {
   searchForm: document.querySelector('#search-form'),
@@ -35,6 +36,7 @@ const refs = {
   btnTheme1: document.querySelector('.btn-them-1'),
   btnTheme2: document.querySelector('.btn-them-2'),
   arrow: document.querySelector('.arrow'),
+  arrowMobile: document.querySelector('.arrow-mobile'),
 };
 
 //====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
@@ -70,6 +72,7 @@ refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.arrow.addEventListener('click', onClickMenuHeader);
+refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 refs.titleContainer2.style.display = 'none';
 
 function onSearchForm(event) {
@@ -99,6 +102,7 @@ function searchFormMobile(event) {
       btn.style.display = 'none';
     }
   });
+  disableMobileMenuSearch();
 }
 
 function onClickCocktailBtn(event) {
@@ -251,6 +255,14 @@ if (isMobile.any()) {
 function onClickMenuHeader() {
   const subMenu = document.querySelector('.favorite-wrapper');
   const thisArrow = document.querySelector('.menu-arrow');
+
+  subMenu.classList.toggle('open');
+  thisArrow.classList.toggle('active');
+}
+
+function onClickMobileMenuHeader() {
+  const subMenu = document.querySelector('.mobile-favorite-list');
+  const thisArrow = document.querySelector('.arrow-mobile');
 
   subMenu.classList.toggle('open');
   thisArrow.classList.toggle('active');

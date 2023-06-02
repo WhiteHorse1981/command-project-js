@@ -14,12 +14,14 @@ const refs = {
   btnLS: document.querySelector('.add-descr'),
   titleContainer1: document.querySelector('.title-1'),
   arrow: document.querySelector('.arrow'),
+  arrowMobile: document.querySelector('.arrow-mobile'),
 };
 
 refs.searchForm.addEventListener('submit', onSearchForm);
 refs.titleContainer1.style.display = 'none';
 refs.gallery.addEventListener('click', removeLSFavoritCocktailLS);
 refs.arrow.addEventListener('click', onClickMenuHeader);
+refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 
 // ======================================================================================
 
@@ -186,6 +188,14 @@ if (isMobile.any()) {
 function onClickMenuHeader() {
   const subMenu = document.querySelector('.favorite-wrapper');
   const thisArrow = document.querySelector('.menu-arrow');
+
+  subMenu.classList.toggle('open');
+  thisArrow.classList.toggle('active');
+}
+
+function onClickMobileMenuHeader() {
+  const subMenu = document.querySelector('.mobile-favorite-list');
+  const thisArrow = document.querySelector('.arrow-mobile');
 
   subMenu.classList.toggle('open');
   thisArrow.classList.toggle('active');
