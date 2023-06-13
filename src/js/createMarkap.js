@@ -26,16 +26,22 @@ export function createCocktail(images) {
                 
                   <button type="button" data-id="${idDrink}" class="add-descr add-favorite js_btn_fav_add" data-cocktail-name="${strDrink}">
                   Add to
+                  
                 
-                  <svg class="icon-svg" width="17" height="16">
+                  <svg class="icon-svg svg-add" width="17" height="16">
                     <use class="use-heart1" href='${useHeart1}'></use>
                   </svg>
+
+                  <svg class="icon-svg svg-remove" width="17" height="16">
+                    <use class="use-heart1" href='${useHeart2}'></use>
+                  </svg>
+                 
                             
                   </button>
                    <button type="button" id=${idDrink} class="add-descr add-favorite js_btn_fav_remove" data-cocktail-name-remove="${strDrink}">
                   Remove
                     
-                  <svg class="icon-svg" width="17" height="16">
+                  <svg class="icon-svg svg-remove" width="17" height="16">
                     <use class="use-heart1" href='${useHeart2}'></use>
                   </svg>
                 

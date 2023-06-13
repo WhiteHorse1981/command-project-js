@@ -5,6 +5,24 @@
   padding-right: 16px;
 }
 
+
+
+.js_btn_fav_add .svg-add {
+  display: block;
+}
+
+.js_btn_fav_add .svg-remove {
+  display: none;
+}
+
+.js_btn_fav_add.btn--toggle .svg-add {
+  display: none;
+}
+
+.js_btn_fav_add.btn--toggle .svg-remove {
+  display: block;
+}
+
 @media screen and (min-width: 320px) {
 
   .container {
@@ -390,9 +408,11 @@
   font-size: 25px;
   font-weight: 500;
   color: var(--text-color);
+  text-align: center;
    
 }
 
 .icon-svg {
   margin-left: 5px;
+  display: inline-block;
 }

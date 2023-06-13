@@ -1,7 +1,6 @@
-const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
 import { loadFromLS, removeFromLS, saveToLS } from './js/localSt.js';
-import { createCocktail } from './js/createCocktail';
-import { callMobileMenu } from './js/menuMobileOpen.js';
+import { createCocktail } from './js/createMarkap.js';
+import { callMobileMenu } from './js/menuMobile.js';
 
 // =======================LISTENER =========================================================
 const refs = {
@@ -32,58 +31,76 @@ function onSearchForm(event) {
   event.preventDefault();
 }
 
-// window.addEventListener('load', loadLSCocktails);
+window.addEventListener('load', loadLSCocktails);
 
-let cocktailsFavorites = [];
+// let cocktailsFavorites = [];
+
+// function loadLSCocktails() {
+//   if (loadFromLS('FavoriteCocktails') === null) {
+//     saveToLS('FavoriteCocktails', '');
+//   } else {
+//     let arr = loadFromLS('FavoriteCocktails');
+//     const fetches = arr.map(cocktailName => {
+//       return fetch(`${BASE_URL}s=${cocktailName}`).then(res => res.json());
+//     });
+//     if (!arr || arr?.length === 0) {
+//       refs.gallery.innerHTML =
+//         "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
+//     }
+//     if (arr) {
+//       const titleNoCocktails = document.querySelector('.title-cocktails-now');
+//       titleNoCocktails.style.display = 'none';
+//       Promise.all(fetches).then(arr => {
+//         arr = arr?.map(obj => {
+//           return obj.drinks[0];
+//         });
+//         cocktailsFavorites.push(...arr);
+//         //console.log(arr);
+//         createCocktail(cocktailsFavorites);
+//         const btnAdd = document.querySelectorAll('.js_btn_fav_add');
+//         for (let btn of btnAdd) {
+//           btn.style.display = 'none';
+//         }
+//         // addSvgUseHearts();
+//       });
+//     }
+//   }
+// }
+
+let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
 
 function loadLSCocktails() {
-  let arr = loadFromLS('FavoriteCocktails');
-  // const galleryContainer = refs.gallery;
-  // console.log(galleryContainer);
-
-  const fetches = arr.map(cocktailName => {
-    return fetch(`${BASE_URL}s=${cocktailName}`).then(res => res.json());
-  });
-
-  if (!arr || arr?.length === 0) {
+  if (!favorite || favorite.length === 0) {
     refs.gallery.innerHTML =
       "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
   } else {
-    Promise.all(fetches).then(arr => {
-      arr = arr.map(obj => {
-        return obj.drinks[0];
-      });
-      cocktailsFavorites.push(...arr);
-      //console.log(arr);
-      createCocktail(cocktailsFavorites);
+    createCocktail(favorite);
+  }
 
-      const btnAdd = document.querySelectorAll('.js_btn_fav_add');
-      for (let btn of btnAdd) {
-        btn.style.display = 'none';
-      }
-      // addSvgUseHearts();
-    });
+  const btnAdd = document.querySelectorAll('.js_btn_fav_add');
+  for (let btn of btnAdd) {
+    btn.style.display = 'none';
   }
 }
 
-loadLSCocktails();
+// loadLSCocktails();
 
 function removeLSFavoritCocktailLS(event) {
   const cocktailNameRemove = event.target.getAttribute(
     'data-cocktail-name-remove'
   );
 
-  const index = cocktailsFavorites.findIndex(
-    ({ strDrink }) => strDrink === cocktailNameRemove
+  const index = favorite.findIndex(
+    data => data.strDrink === cocktailNameRemove
   );
 
-  cocktailsFavorites.splice(index, 1);
+  favorite.splice(index, 1);
 
   refs.gallery.innerHTML = '';
 
-  createCocktail(cocktailsFavorites);
+  createCocktail(favorite);
 
-  removeFromLS('FavoriteCocktails', cocktailNameRemove);
+  removeFromLS('FavoriteCocktails', favorite);
 
   const btnAdd = document.querySelectorAll('.js_btn_fav_add');
   for (let btn of btnAdd) {
@@ -118,20 +135,7 @@ toggleBtn.addEventListener('click', function () {
   }
 });
 
-//================  SVG  =====================================//
-
-// function addSvgUseHearts() {
-//   const addBtnsSvg = document.querySelectorAll('.card-btn__add svg');
-//   for (let svg of addBtnsSvg) {
-//     svg.innerHTML = `<use class="use-heart1" href='${useHeart1}'></use>`;
-//   }
-//   const removeBtnsSvg = document.querySelectorAll('.card-btn__remove svg');
-//   for (let svg of removeBtnsSvg) {
-//     svg.innerHTML = `<use class="use-heart1" href='${useHeart2}'></use>`;
-//   }
-// }
-
-//============ Скрипт меню открытия с помощью тачcкрина на планшетах и мобильных устройствах =====//
+//============ Скрипт меню открытия тачcкрином на планшетах и мобильных устройствах =====//
 let isMobile = {
   Android: function () {
     return navigator.userAgent.match(/Android/i);
@@ -158,25 +162,6 @@ let isMobile = {
     );
   },
 };
-
-// let body = document.querySelector('body');
-// if (isMobile.any()) {
-//   body.classList.add('touch');
-//   let arrow = document.querySelectorAll('.arrow');
-//   for (i = 0; i < arrow.length; i++) {
-//     let thisLink = arrow[i].previousElementSibling;
-//     let subMenu = arrow[i].nextElementSibling;
-//     let thisArrow = arrow[i];
-
-//     // thisLink.classList.add('parent');
-//     arrow[i].addEventListener('click', function () {
-//       subMenu.classList.toggle('open');
-//       thisArrow.classList.toggle('active');
-//     });
-//   }
-// } else {
-//   body.classList.add('mouse');
-// }
 
 let body = document.querySelector('body');
 if (isMobile.any()) {
