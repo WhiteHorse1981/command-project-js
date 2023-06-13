@@ -150,11 +150,12 @@ function onClickLetterCocktail(event) {
 // =====================================================
 
 function saveAndRemoveFavoritCocktailsLS(event) {
+  cocktailName = event.target.getAttribute('data-cocktail-name');
+  saveToLS('FavoriteCocktails', cocktailName);
+
   const elParent = event.target.closest('.gallery-item');
 
   // if (event.target.classList.contains('js_btn_fav_add')) {
-  cocktailName = event.target.getAttribute('data-cocktail-name');
-  saveToLS('FavoriteCocktails', cocktailName);
 
   const btnRemove = elParent.children[1].children[1].children[2];
   btnRemove.style.display = 'flex';
