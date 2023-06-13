@@ -66,20 +66,36 @@ window.addEventListener('load', loadLSCocktails);
 //     }
 //   }
 // }
-
+BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
 let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+console.log(favorite);
+let cocktailsFavorites = [];
 
 function loadLSCocktails() {
   if (!favorite || favorite.length === 0) {
     refs.gallery.innerHTML =
       "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
   } else {
-    createCocktail(favorite);
-  }
+    let arr = loadFromLS('FavoriteCocktails');
+    const fetches = arr.map(cocktailName => {
+      return fetch(`${BASE_URL}s=${cocktailName}`).then(res => res.json());
+    });
 
-  const btnAdd = document.querySelectorAll('.js_btn_fav_add');
-  for (let btn of btnAdd) {
-    btn.style.display = 'none';
+    Promise.all(fetches).then(arr => {
+      arr = arr?.map(obj => {
+        return obj.drinks[0];
+      });
+      cocktailsFavorites.push(...arr);
+      //console.log(arr);
+      createCocktail(cocktailsFavorites);
+
+      const btnAdd = document.querySelectorAll('.js_btn_fav_add');
+      for (let btn of btnAdd) {
+        btn.style.display = 'none';
+      }
+
+      // createCocktail(favorite);
+    });
   }
 }
 
