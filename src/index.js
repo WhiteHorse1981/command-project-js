@@ -167,7 +167,7 @@ function onClickLetterCocktail(event) {
 //   //   localStorage.setItem('FavoriteCocktails', cocktails);
 //   // }
 // }
-
+//========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В ls==================//
 async function saveAndRemoveFavoritCocktailsLS(event) {
   const elParent = event.target.closest('.gallery-item');
 
