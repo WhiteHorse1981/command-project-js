@@ -152,34 +152,37 @@ function onClickLetterCocktail(event) {
 function saveAndRemoveFavoritCocktailsLS(event) {
   const elParent = event.target.closest('.gallery-item');
 
-  if (event.target.classList.contains('js_btn_fav_add')) {
-    cocktailName = event.target.getAttribute('data-cocktail-name');
-    saveToLS('FavoriteCocktails', cocktailName);
+  // if (event.target.classList.contains('js_btn_fav_add')) {
+  cocktailName = event.target.getAttribute('data-cocktail-name');
+  saveToLS('FavoriteCocktails', cocktailName);
 
-    const btnRemove = elParent.children[1].children[1].children[2];
-    btnRemove.style.display = 'flex';
-    const btnAdd = elParent.children[1].children[1].children[1];
-    btnAdd.style.display = 'none';
-  } else if (event.target.classList.contains('js_btn_fav_remove')) {
-    let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-    console.log(favorite);
+  const btnRemove = elParent.children[1].children[1].children[2];
+  btnRemove.style.display = 'flex';
+  const btnAdd = elParent.children[1].children[1].children[1];
+  btnAdd.style.display = 'none';
+  // } else if (event.target.classList.contains('js_btn_fav_remove')) {
+  //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+  //   console.log(favorite);
 
-    const cocktailNameRemove = event.target.getAttribute(
-      'data-cocktail-name-remove'
-    );
+  //   const cocktailNameRemove = event.target.getAttribute(
+  //     'data-cocktail-name-remove'
+  //   );
 
-    const index = favorite.findIndex(drink => drink === cocktailNameRemove);
+  //   const index = favorite.findIndex(drink => drink === cocktailNameRemove);
 
-    favorite.splice(index, 1);
+  //   favorite.splice(index, 1);
 
-    removeFromLS('FavoriteCocktails', favorite);
+  //   removeFromLS('FavoriteCocktails', favorite);
 
-    const btnRemove = elParent.children[1].children[1].children[2];
-    console.log(btnRemove);
-    btnRemove.style.display = 'none';
-    const btnAdd = elParent.children[1].children[1].children[1];
-    btnAdd.style.display = 'flex';
-  }
+  //   const btnRemove = elParent.children[1].children[1].children[2];
+  //   console.log(btnRemove);
+  //   btnRemove.style.display = 'none';
+  //   const btnAdd = elParent.children[1].children[1].children[1];
+  //   btnAdd.style.display = 'flex';
+  // }
+
+  /////////////=====================////////////////////////////////////////========================
+
   // let cocktailName = [];
   // cocktailName = event.target.getAttribute('data-cocktail-name');
   // saveToLS('FavoriteCocktails', cocktailName);
