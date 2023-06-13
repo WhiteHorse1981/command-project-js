@@ -153,14 +153,14 @@ function saveAndRemoveFavoritCocktailsLS(event) {
   cocktailName = event.target.getAttribute('data-cocktail-name');
   saveToLS('FavoriteCocktails', cocktailName);
 
-  const elParent = event.target.closest('.gallery-item');
+  // const elParent = event.target.closest('.gallery-item');
 
   // if (event.target.classList.contains('js_btn_fav_add')) {
 
-  const btnRemove = elParent.children[1].children[1].children[2];
-  btnRemove.style.display = 'flex';
-  const btnAdd = elParent.children[1].children[1].children[1];
-  btnAdd.style.display = 'none';
+  // const btnRemove = elParent.children[1].children[1].children[2];
+  // btnRemove.style.display = 'flex';
+  // const btnAdd = elParent.children[1].children[1].children[1];
+  // btnAdd.style.display = 'none';
   // } else if (event.target.classList.contains('js_btn_fav_remove')) {
   //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
   //   console.log(favorite);
