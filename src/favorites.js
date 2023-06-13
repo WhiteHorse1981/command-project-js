@@ -89,17 +89,17 @@ function loadLSCocktails() {
     //   //console.log(arr);
     //   createCocktail(cocktailsFavorites);
 
-    //   const btnAdd = document.querySelectorAll('.js_btn_fav_add');
-    //   for (let btn of btnAdd) {
-    //     btn.style.display = 'none';
-    //   }
+    const btnAdd = document.querySelectorAll('.js_btn_fav_add');
+    for (let btn of btnAdd) {
+      btn.style.display = 'none';
+    }
 
     createCocktail(favorite);
     // });
   }
 }
 
-// loadLSCocktails();
+loadLSCocktails();
 
 function removeLSFavoritCocktailLS(event) {
   const cocktailNameRemove = event.target.getAttribute(
