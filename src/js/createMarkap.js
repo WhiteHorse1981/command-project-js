@@ -2,15 +2,16 @@ const markupMobile = document.querySelector('.dropdown-content');
 const markupDesktop = document.querySelector('.list-cocktail');
 
 // ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ПО ПОИСКУ=======================
-export function createCocktail(images) {
+export function createCocktail(cocktails) {
   const iconHeart1 = document.querySelector('.div-icon-heart1');
   const iconHeart2 = document.querySelector('.div-icon-heart2');
   const useHeart1 = iconHeart1.href.baseVal;
   const useHeart2 = iconHeart2.href.baseVal;
 
-  const markup = images
-    .map(image => {
-      const { strDrinkThumb, strImageAttribution, strDrink, idDrink } = image;
+  const markup = cocktails
+    .map(cocktail => {
+      const { strDrinkThumb, strImageAttribution, strDrink, idDrink } =
+        cocktail;
       return `
         
           <div class="gallery-item gallery__link">
