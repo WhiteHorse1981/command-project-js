@@ -149,63 +149,63 @@ function onClickLetterCocktail(event) {
 
 // =====================================================
 
-function saveAndRemoveFavoritCocktailsLS(event) {
-  let cocktailName = [];
-  cocktailName = event.target.getAttribute('data-cocktail-name');
+// function saveAndRemoveFavoritCocktailsLS(event) {
+//   let cocktailName = [];
+//   cocktailName = event.target.getAttribute('data-cocktail-name');
 
-  // cocktails.push(index);
-  // console.log(cocktailName);
-  saveToLS('FavoriteCocktails', cocktailName);
+//   // cocktails.push(index);
+//   // console.log(cocktailName);
+//   saveToLS('FavoriteCocktails', cocktailName);
 
-  // localStorage.setItem('FavoriteCocktails', JSON.stringify(cocktails));
+//   // localStorage.setItem('FavoriteCocktails', JSON.stringify(cocktails));
 
-  // if (!cocktails.includes(cocktailName)) {
-  //   cocktails.push(cocktailName);
-  //   localStorage.setItem('FavoriteCocktails', cocktails);
-  // } else {
-  //   cocktails.splice(cocktails.indexOf(cocktailName), 1);
-  //   localStorage.setItem('FavoriteCocktails', cocktails);
-  // }
-}
-
-// async function saveAndRemoveFavoritCocktailsLS(event) {
-//   const elParent = event.target.closest('.gallery-item');
-
-//   if (event.target.classList.contains('js_btn_fav_add')) {
-//     cocktailName = event.target.getAttribute('data-cocktail-name');
-//     console.log(cocktailName);
-
-//     const data = await fetchCocktails(cocktailName);
-//     let drink = { ...data.drinks[0] };
-//     saveToLS('FavoriteCocktails', drink);
-//     const btnRemove = elParent.children[1].children[1].children[2];
-
-//     btnRemove.style.display = 'flex';
-//     const btnAdd = elParent.children[1].children[1].children[1];
-//     btnAdd.style.display = 'none';
-//   } else if (event.target.classList.contains('js_btn_fav_remove')) {
-//     let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-//     console.log(favorite);
-
-//     const cocktailNameRemove = event.target.getAttribute(
-//       'data-cocktail-name-remove'
-//     );
-
-//     const index = await favorite.findIndex(
-//       data => data.strDrink === cocktailNameRemove
-//     );
-
-//     favorite.splice(index, 1);
-
-//     removeFromLS('FavoriteCocktails', favorite);
-
-//     const btnRemove = elParent.children[1].children[1].children[2];
-//     console.log(btnRemove);
-//     btnRemove.style.display = 'none';
-//     const btnAdd = elParent.children[1].children[1].children[1];
-//     btnAdd.style.display = 'flex';
-//   }
+//   // if (!cocktails.includes(cocktailName)) {
+//   //   cocktails.push(cocktailName);
+//   //   localStorage.setItem('FavoriteCocktails', cocktails);
+//   // } else {
+//   //   cocktails.splice(cocktails.indexOf(cocktailName), 1);
+//   //   localStorage.setItem('FavoriteCocktails', cocktails);
+//   // }
 // }
+
+async function saveAndRemoveFavoritCocktailsLS(event) {
+  const elParent = event.target.closest('.gallery-item');
+
+  if (event.target.classList.contains('js_btn_fav_add')) {
+    cocktailName = event.target.getAttribute('data-cocktail-name');
+    console.log(cocktailName);
+
+    const data = await fetchCocktails(cocktailName);
+    let drink = { ...data.drinks[0] };
+    saveToLS('FavoriteCocktails', drink);
+    const btnRemove = elParent.children[1].children[1].children[2];
+
+    btnRemove.style.display = 'flex';
+    const btnAdd = elParent.children[1].children[1].children[1];
+    btnAdd.style.display = 'none';
+  } else if (event.target.classList.contains('js_btn_fav_remove')) {
+    let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+    console.log(favorite);
+
+    const cocktailNameRemove = event.target.getAttribute(
+      'data-cocktail-name-remove'
+    );
+
+    const index = await favorite.findIndex(
+      data => data.strDrink === cocktailNameRemove
+    );
+
+    favorite.splice(index, 1);
+
+    removeFromLS('FavoriteCocktails', favorite);
+
+    const btnRemove = elParent.children[1].children[1].children[2];
+    console.log(btnRemove);
+    btnRemove.style.display = 'none';
+    const btnAdd = elParent.children[1].children[1].children[1];
+    btnAdd.style.display = 'flex';
+  }
+}
 
 // ====================ТЕМНАЯ ТЕМА=========================================
 document.addEventListener('DOMContentLoaded', () => {
