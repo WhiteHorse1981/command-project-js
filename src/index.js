@@ -168,21 +168,22 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
   //   localStorage.setItem('FavoriteCocktails', cocktails);
   // }
 
-  const elParent = event.target.closest('.gallery-item');
+  // const elParent = event.target.closest('.gallery-item');
 
-  if (event.target.classList.contains('js_btn_fav_add')) {
-    cocktailName = event.target.getAttribute('data-cocktail-name');
-    console.log(cocktailName);
+  // if (event.target.classList.contains('js_btn_fav_add')) {
+  cocktailName = event.target.getAttribute('data-cocktail-name');
+  console.log(cocktailName);
 
-    const data = await fetchCocktails(cocktailName);
-    let drink = { ...data.drinks[0] };
-    saveToLS('FavoriteCocktails', drink);
-    const btnRemove = elParent.children[1].children[1].children[2];
+  const data = await fetchCocktails(cocktailName);
+  let drink = { ...data.drinks[0] };
 
-    btnRemove.style.display = 'flex';
-    const btnAdd = elParent.children[1].children[1].children[1];
-    btnAdd.style.display = 'none';
-  }
+  saveToLS('FavoriteCocktails', drink);
+  // const btnRemove = elParent.children[1].children[1].children[2];
+
+  // btnRemove.style.display = 'flex';
+  // const btnAdd = elParent.children[1].children[1].children[1];
+  // btnAdd.style.display = 'none';
+  // }
 }
 //========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
 // async function saveAndRemoveFavoritCocktailsLS(event) {

@@ -12,8 +12,8 @@ export function createCocktail(images) {
     .map(image => {
       const { strDrinkThumb, strImageAttribution, strDrink, idDrink } = image;
       return `
-        <a class="gallery__link">
-          <div class="gallery-item">
+        
+          <div class="gallery-item gallery__link">
             <img class="gallery-item__img" src="${strDrinkThumb}" alt="${strImageAttribution}" loading="lazy" />
             <div class="info">
               <div class="info-item">
@@ -47,7 +47,7 @@ export function createCocktail(images) {
               </div>
             </div>
           </div>
-        </a>
+       
       `;
     })
     .join('');

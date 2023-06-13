@@ -119,21 +119,36 @@ function init() {
     document.documentElement.removeAttribute('theme');
   }
 }
-const toggleBtn = document.querySelector('#toggle-theme');
-toggleBtn.addEventListener('click', function () {
-  if (document.documentElement.hasAttribute('theme')) {
-    document.documentElement.removeAttribute('theme');
-    localStorage.removeItem('theme');
-  } else {
-    document.querySelectorAll('.checkboxBtn').forEach(el => {
-      el.onchange = () => localStorage.setItem(el.id, el.checked);
-      el.checked = localStorage.getItem(el.id === 'true');
-    });
 
-    document.documentElement.setAttribute('theme', 'dark');
-    localStorage.setItem('theme', 'black');
+function readLSTheme() {
+  const toggleBtn = document.querySelector('#toggle-theme');
+  toggleBtn.addEventListener('click', function () {
+    if (document.documentElement.hasAttribute('theme')) {
+      document.documentElement.removeAttribute('theme');
+      localStorage.removeItem('theme');
+    } else {
+      document.documentElement.setAttribute('theme', 'dark');
+      localStorage.setItem('theme', 'black');
+    }
+  });
+}
+
+readLSTheme();
+
+const btnThemePosition = localStorage.getItem('theme');
+
+function saveButtonPositionDarkTheme() {
+  const btnDarkTheme = document.querySelector('#highload1');
+
+  if (btnThemePosition === 'black') {
+    btnDarkTheme.classList.remove('checkboxBtn');
+    btnDarkTheme.classList.add('checkboxBtnOrange');
   }
-});
+}
+
+saveButtonPositionDarkTheme();
+
+//========================================================================================//
 
 //============ Скрипт меню открытия тачcкрином на планшетах и мобильных устройствах =====//
 let isMobile = {
