@@ -258,13 +258,12 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
 
   if (event.target.classList.contains('js_btn_fav_add')) {
     // cocktailName = event.target.getAttribute('data-cocktail-name');
-    cocktailName = elParent.children[1].children[0].children[0].textContent;
-    console.log(cocktailName);
+    // cocktailName = elParent.children[1].children[0].children[0].textContent;
+    // console.log(cocktailName);
 
-    const data = await fetchCocktails(cocktailName);
-    let drink = { ...data.drinks[0] };
-    favoriteDrinks.push(drink);
-    saveToLS('FavoriteCocktails', favoriteDrinks);
+    // const data = await fetchCocktails(cocktailName);
+    // let drink = { ...data.drinks[0] };
+    // saveToLS('FavoriteCocktails', drink);
 
     const btnRemove = elParent.children[1].children[1].children[2];
     btnRemove.style.display = 'flex';
