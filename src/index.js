@@ -254,7 +254,7 @@ if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
   favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
 }
 async function saveAndRemoveFavoritCocktailsLS(event) {
-  const elParent = event.target.closest('.gallery-item');
+  const elParent = event.target.closest('.gallery');
 
   if (event.target.classList.contains('js_btn_fav_add')) {
     // cocktailName = event.target.getAttribute('data-cocktail-name');
