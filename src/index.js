@@ -175,7 +175,7 @@ async function onClickLetterCocktail(event) {
 
 // =====================================================
 
-function saveAndRemoveFavoritCocktailsLS(event) {
+async function saveAndRemoveFavoritCocktailsLS(event) {
   // const elParent = event.target.closest('.gallery-item');
   // if (event.target.classList.contains('js_btn_fav_add')) {
   // const btnRemove = elParent.children[1].children[1].children[2];
@@ -198,10 +198,14 @@ function saveAndRemoveFavoritCocktailsLS(event) {
   //   btnAdd.style.display = 'flex';
   // }
   /////////////=====================////////////////////////////////////////========================
-  let cocktailName = [];
+  // let cocktailName = [];
   cocktailName = event.target.getAttribute('data-cocktail-name');
   console.log(cocktailName);
-  saveToLS('FavoriteCocktails', cocktailName);
+
+  const data = await fetchCocktails(cocktailName);
+  let drink = { ...data.drinks[0] };
+
+  saveToLS('FavoriteCocktails', drink);
   //=======================================================
   // cocktails.push(index);
   // console.log(cocktailName);
