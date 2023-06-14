@@ -14,7 +14,7 @@ export function createCocktail(cocktails) {
         cocktail;
       return `
         
-          <div class="gallery-item gallery__link gallery">
+          <div class="gallery-item gallery__link">
             <img class="gallery-item__img" src="${strDrinkThumb}" alt="${strImageAttribution}" loading="lazy" />
             <div class="info">
               <div class="info-item">

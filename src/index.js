@@ -247,53 +247,46 @@ async function onClickLetterCocktail(event) {
 // }
 // }
 //========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
-let favoriteDrinks;
-if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
-  favoriteDrinks = [];
-} else {
-  favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-}
+// let favoriteDrinks;
+// if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
+//   favoriteDrinks = [];
+// } else {
+//   favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+// }
 async function saveAndRemoveFavoritCocktailsLS(event) {
-  const elParent = event.target.closest('.gallery');
-
-  if (event.target.classList.contains('js_btn_fav_add')) {
-    // cocktailName = event.target.getAttribute('data-cocktail-name');
-    cocktail = elParent.children[1].children[0].children[0].textContent;
-    console.log(cocktail);
-
-    const data = await fetchCocktails(cocktail);
-    let drink = { ...data.drinks[0] };
-    favoriteDrinks.push(drink);
-    saveToLS('FavoriteCocktails', favoriteDrinks);
-
-    const btnRemove = elParent.children[1].children[1].children[2];
-
-    btnRemove.style.display = 'flex';
-    const btnAdd = elParent.children[1].children[1].children[1];
-    console.log(btnAdd);
-    btnAdd.style.display = 'none';
-  } else if (event.target.classList.contains('js_btn_fav_remove')) {
-    let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-    console.log(favorite);
-
-    const cocktailNameRemove = event.target.getAttribute(
-      'data-cocktail-name-remove'
-    );
-
-    const index = await favorite.findIndex(
-      data => data.strDrink === cocktailNameRemove
-    );
-
-    favorite.splice(index, 1);
-
-    removeFromLS('FavoriteCocktails', favorite);
-
-    const btnRemove = elParent.children[1].children[1].children[2];
-    console.log(btnRemove);
-    btnRemove.style.display = 'none';
-    const btnAdd = elParent.children[1].children[1].children[1];
-    btnAdd.style.display = 'flex';
-  }
+  cocktailName = event.target.getAttribute('data-cocktail-name');
+  saveToLS('FavoriteCocktails', cocktailName);
+  // const elParent = event.target.closest('.gallery-item');
+  // if (event.target.classList.contains('js_btn_fav_add')) {
+  //   // cocktailName = event.target.getAttribute('data-cocktail-name');
+  //   cocktail = elParent.children[1].children[0].children[0].textContent;
+  //   console.log(cocktail);
+  //   const data = await fetchCocktails(cocktail);
+  //   let drink = { ...data.drinks[0] };
+  //   // favoriteDrinks.push(drink);
+  //   saveToLS('FavoriteCocktails', drink);
+  //   const btnRemove = elParent.children[1].children[1].children[2];
+  //   btnRemove.style.display = 'flex';
+  //   const btnAdd = elParent.children[1].children[1].children[1];
+  //   console.log(btnAdd);
+  //   btnAdd.style.display = 'none';
+  // } else if (event.target.classList.contains('js_btn_fav_remove')) {
+  //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+  //   console.log(favorite);
+  //   const cocktailNameRemove = event.target.getAttribute(
+  //     'data-cocktail-name-remove'
+  //   );
+  //   const index = await favorite.findIndex(
+  //     data => data.strDrink === cocktailNameRemove
+  //   );
+  //   favorite.splice(index, 1);
+  //   removeFromLS('FavoriteCocktails', favorite);
+  //   const btnRemove = elParent.children[1].children[1].children[2];
+  //   console.log(btnRemove);
+  //   btnRemove.style.display = 'none';
+  //   const btnAdd = elParent.children[1].children[1].children[1];
+  //   btnAdd.style.display = 'flex';
+  // }
 }
 
 // ====================ТЕМНАЯ ТЕМА=========================================
