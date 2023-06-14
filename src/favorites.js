@@ -35,6 +35,10 @@ window.addEventListener('load', loadLSCocktails);
 
 // let cocktailsFavorites = [];
 
+// BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
+
+// let cocktailsFavorites = [];
+
 // function loadLSCocktails() {
 //   if (loadFromLS('FavoriteCocktails') === null) {
 //     saveToLS('FavoriteCocktails', '');
@@ -48,8 +52,8 @@ window.addEventListener('load', loadLSCocktails);
 //         "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
 //     }
 //     if (arr) {
-//       const titleNoCocktails = document.querySelector('.title-cocktails-now');
-//       titleNoCocktails.style.display = 'none';
+//       // const titleNoCocktails = document.querySelector('.title-cocktails-now');
+//       // titleNoCocktails.style.display = 'none';
 //       Promise.all(fetches).then(arr => {
 //         arr = arr?.map(obj => {
 //           return obj.drinks[0];
@@ -66,50 +70,37 @@ window.addEventListener('load', loadLSCocktails);
 //     }
 //   }
 // }
-// BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
+
 let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
 console.log(favorite);
-// let cocktailsFavorites = [];
 
 function loadLSCocktails() {
   if (!favorite || favorite.length === 0) {
     refs.gallery.innerHTML =
       "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
   } else {
-    // let arr = loadFromLS('FavoriteCocktails');
-    // const fetches = arr.map(cocktailName => {
-    //   return fetch(`${BASE_URL}s=${cocktailName}`).then(res => res.json());
-    // });
-
-    // Promise.all(fetches).then(arr => {
-    //   arr = arr?.map(obj => {
-    //     return obj.drinks[0];
-    //   });
-    //   cocktailsFavorites.push(...arr);
-    //   //console.log(arr);
-    //   createCocktail(cocktailsFavorites);
-
     createCocktail(favorite);
+
     const btnAdd = document.querySelectorAll('.js_btn_fav_add');
     for (let btn of btnAdd) {
       btn.style.display = 'none';
     }
-    // });
   }
 }
 
-function removeLSFavoritCocktailLS(event) {
+async function removeLSFavoritCocktailLS(event) {
   const cocktailNameRemove = event.target.getAttribute(
     'data-cocktail-name-remove'
   );
 
-  const index = favorite.findIndex(
+  const index = await favorite.findIndex(
     data => data.strDrink === cocktailNameRemove
   );
 
   favorite.splice(index, 1);
 
   refs.gallery.innerHTML = '';
+  console.log(favorite);
 
   createCocktail(favorite);
 

@@ -141,7 +141,7 @@ async function onClickLetterCocktail(event) {
   try {
     const letter = event.target.textContent;
 
-    const data = await fetchCocktails(letter);
+    const data = await fetchLetterCocktails(letter);
     if (data.drinks === null) {
       refs.titleContainer1.style.display = 'none';
       refs.gallery.innerHTML =
@@ -176,46 +176,78 @@ async function onClickLetterCocktail(event) {
 
 // =====================================================
 
-function saveAndRemoveFavoritCocktailsLS(event) {
-  // const elParent = event.target.closest('.gallery-item');
-  // if (event.target.classList.contains('js_btn_fav_add')) {
-  // const btnRemove = elParent.children[1].children[1].children[2];
-  // btnRemove.style.display = 'flex';
-  // const btnAdd = elParent.children[1].children[1].children[1];
-  // btnAdd.style.display = 'none';
-  // } else if (event.target.classList.contains('js_btn_fav_remove')) {
-  //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-  //   console.log(favorite);
-  //   const cocktailNameRemove = event.target.getAttribute(
-  //     'data-cocktail-name-remove'
-  //   );
-  //   const index = favorite.findIndex(drink => drink === cocktailNameRemove);
-  //   favorite.splice(index, 1);
-  //   removeFromLS('FavoriteCocktails', favorite);
-  //   const btnRemove = elParent.children[1].children[1].children[2];
-  //   console.log(btnRemove);
-  //   btnRemove.style.display = 'none';
-  //   const btnAdd = elParent.children[1].children[1].children[1];
-  //   btnAdd.style.display = 'flex';
-  // }
-  /////////////=====================////////////////////////////////////////========================
-  const elParent = event.target.closest('.gallery-item');
-  let cocktailName = [];
-  cocktailName = event.target.getAttribute('data-cocktail-name');
-  console.log(cocktailName);
+// function saveAndRemoveFavoritCocktailsLS(event) {
 
+//   const elParent = event.target.closest('.gallery-item');
+//   let cocktailName = [];
+//   cocktailName = event.target.getAttribute('data-cocktail-name');
+//   console.log(cocktailName);
+
+//   if (event.target.classList.contains('js_btn_fav_add')) {
+//     const btnRemove = elParent.children[1].children[1].children[2];
+//     btnRemove.style.display = 'flex';
+//     const btnAdd = elParent.children[1].children[1].children[1];
+//     btnAdd.style.display = 'none';
+//   } else if (event.target.classList.contains('js_btn_fav_remove')) {
+//     let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+//     console.log(favorite);
+//     const cocktailNameRemove = event.target.getAttribute(
+//       'data-cocktail-name-remove'
+//     );
+//     const index = favorite.findIndex(drink => drink === cocktailNameRemove);
+//     favorite.splice(index, 1);
+//     removeFromLS('FavoriteCocktails', favorite);
+//     const btnRemove = elParent.children[1].children[1].children[2];
+//     console.log(btnRemove);
+//     btnRemove.style.display = 'none';
+//     const btnAdd = elParent.children[1].children[1].children[1];
+//     btnAdd.style.display = 'flex';
+//   }
+
+//   // fetchCocktails(cocktailName).then(data => {
+//   //   let drink = { ...data.drinks[0] };
+//   //   saveToLS('FavoriteCocktails', drink);
+//   // });
+
+//   saveToLS('FavoriteCocktails', cocktailName);
+
+// }
+//========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
+let favoriteDrinks;
+if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
+  favoriteDrinks = [];
+} else {
+  favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+}
+async function saveAndRemoveFavoritCocktailsLS(event) {
+  // cocktailName = event.target.getAttribute('data-cocktail-name');
+  // saveToLS('FavoriteCocktails', cocktailName);
+  const elParent = event.target.closest('.gallery-item');
   if (event.target.classList.contains('js_btn_fav_add')) {
+    // cocktailName = event.target.getAttribute('data-cocktail-name');
+
+    cocktailName = elParent.children[1].children[0].children[0].textContent;
+    console.log(cocktailName);
+
+    const data = await fetchCocktails(cocktailName);
+    let drink = { ...data.drinks[0] };
+    // favoriteDrinks.push(drink);
+    saveToLS('FavoriteCocktails', drink);
     const btnRemove = elParent.children[1].children[1].children[2];
     btnRemove.style.display = 'flex';
     const btnAdd = elParent.children[1].children[1].children[1];
+    console.log(btnAdd);
     btnAdd.style.display = 'none';
   } else if (event.target.classList.contains('js_btn_fav_remove')) {
     let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+
     console.log(favorite);
     const cocktailNameRemove = event.target.getAttribute(
       'data-cocktail-name-remove'
     );
-    const index = favorite.findIndex(drink => drink === cocktailNameRemove);
+    const index = await favorite.findIndex(
+      data => data.strDrink === cocktailNameRemove
+    );
     favorite.splice(index, 1);
     removeFromLS('FavoriteCocktails', favorite);
     const btnRemove = elParent.children[1].children[1].children[2];
@@ -224,82 +256,7 @@ function saveAndRemoveFavoritCocktailsLS(event) {
     const btnAdd = elParent.children[1].children[1].children[1];
     btnAdd.style.display = 'flex';
   }
-
-  // fetchCocktails(cocktailName).then(data => {
-  //   let drink = { ...data.drinks[0] };
-  //   saveToLS('FavoriteCocktails', drink);
-  // });
-
-  saveToLS('FavoriteCocktails', cocktailName);
-  //=======================================================
-  // cocktails.push(index);
-  // console.log(cocktailName);
-  // localStorage.setItem('FavoriteCocktails', JSON.stringify(cocktails));
-  // if (!cocktails.includes(cocktailName)) {
-  //   cocktails.push(cocktailName);
-  //   localStorage.setItem('FavoriteCocktails', cocktails);
-  // } else {
-  //   cocktails.splice(cocktails.indexOf(cocktailName), 1);
-  //   localStorage.setItem('FavoriteCocktails', cocktails);
-  // }
-  // const elParent = event.target.closest('.gallery-item');
-  // if (event.target.classList.contains('js_btn_fav_add')) {
-  //======================================================//////////////////////////////////////
-  // cocktailName = event.target.getAttribute('data-cocktail-name');
-  // console.log(cocktailName);
-  // fetchCocktails(cocktailName).then(data => {
-  //   let drink = { ...data.drinks[0] };
-  //   saveToLS('FavoriteCocktails', drink);
-  // });
-  //============================================================================////////////////////////
-  // const btnRemove = elParent.children[1].children[1].children[2];
-  // btnRemove.style.display = 'flex';
-  // const btnAdd = elParent.children[1].children[1].children[1];
-  // btnAdd.style.display = 'none';
-  // }
 }
-//========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
-// let favoriteDrinks;
-// if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
-//   favoriteDrinks = [];
-// } else {
-//   favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-// }
-// async function saveAndRemoveFavoritCocktailsLS(event) {
-//   cocktailName = event.target.getAttribute('data-cocktail-name');
-//   saveToLS('FavoriteCocktails', cocktailName);
-//   // const elParent = event.target.closest('.gallery-item');
-//   // if (event.target.classList.contains('js_btn_fav_add')) {
-//   //   // cocktailName = event.target.getAttribute('data-cocktail-name');
-//   //   cocktail = elParent.children[1].children[0].children[0].textContent;
-//   //   console.log(cocktail);
-//   //   const data = await fetchCocktails(cocktail);
-//   //   let drink = { ...data.drinks[0] };
-//   //   // favoriteDrinks.push(drink);
-//   //   saveToLS('FavoriteCocktails', drink);
-//   //   const btnRemove = elParent.children[1].children[1].children[2];
-//   //   btnRemove.style.display = 'flex';
-//   //   const btnAdd = elParent.children[1].children[1].children[1];
-//   //   console.log(btnAdd);
-//   //   btnAdd.style.display = 'none';
-//   // } else if (event.target.classList.contains('js_btn_fav_remove')) {
-//   //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-//   //   console.log(favorite);
-//   //   const cocktailNameRemove = event.target.getAttribute(
-//   //     'data-cocktail-name-remove'
-//   //   );
-//   //   const index = await favorite.findIndex(
-//   //     data => data.strDrink === cocktailNameRemove
-//   //   );
-//   //   favorite.splice(index, 1);
-//   //   removeFromLS('FavoriteCocktails', favorite);
-//   //   const btnRemove = elParent.children[1].children[1].children[2];
-//   //   console.log(btnRemove);
-//   //   btnRemove.style.display = 'none';
-//   //   const btnAdd = elParent.children[1].children[1].children[1];
-//   //   btnAdd.style.display = 'flex';
-//   // }
-// }
 
 // function onClickCocktailBtn(event) {
 //   refs.modalCreateCocktail.innerHTML = '';
