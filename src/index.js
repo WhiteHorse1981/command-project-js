@@ -263,7 +263,8 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
 
     const data = await fetchCocktails(cocktail);
     let drink = { ...data.drinks[0] };
-    saveToLS('FavoriteCocktails', drink);
+    favoriteDrinks.push(drink);
+    saveToLS('FavoriteCocktails', favoriteDrinks);
 
     const btnRemove = elParent.children[1].children[1].children[2];
 
