@@ -18,23 +18,23 @@ import { callMobileMenu } from './js/menuMobile.js';
 import { disableMobileMenuSearch } from './js/menuMobile.js';
 
 const refs = {
+  gallery: document.querySelector('.gallery'),
   searchForm: document.querySelector('#search-form'),
   searchFormMobile: document.querySelector('#mobile-search-form'),
-  gallery: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.btn-load-more'),
   searchLetterCocktailMobile: document.querySelector('.js-letter-cocktail-1'),
+  // loadMoreBtn: document.querySelector('.btn-load-more'),
   searchLetterCocktail: document.querySelector('.js-letter-cocktail-2'),
   modal: document.querySelector('.modal'),
-  closeModalBtn: document.querySelector('.modal-close-btn'),
-  modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
+  // closeModalBtn: document.querySelector('.modal-close-btn'),
+  // modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
   titleContainer2: document.querySelector('.title-2'),
   titleContainer1: document.querySelector('.title-1'),
-  modalIngredient: document.querySelector('.modal-ingredient'),
-  modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
-  boxContainerTheme: document.querySelector('.js-theme-box'),
+  // modalIngredient: document.querySelector('.modal-ingredient'),
+  // modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
+  // boxContainerTheme: document.querySelector('.js-theme-box'),
   btnDarkTheme: document.querySelector('.js-dark-them'),
-  btnTheme1: document.querySelector('.btn-them-1'),
-  btnTheme2: document.querySelector('.btn-them-2'),
+  // btnTheme1: document.querySelector('.btn-them-1'),
+  // btnTheme2: document.querySelector('.btn-them-2'),
   arrow: document.querySelector('.arrow'),
   arrowMobile: document.querySelector('.arrow-mobile'),
 };
@@ -71,9 +71,8 @@ refs.searchLetterCocktail.addEventListener('click', onClickLetterCocktail);
 refs.gallery.addEventListener('click', saveAndRemoveFavoritCocktailsLS);
 refs.gallery.addEventListener('click', openModalWindow);
 refs.modal.addEventListener('click', openModalWindow);
-refs.gallery.addEventListener('click', onClickCocktailBtn);
-refs.gallery.addEventListener('click', onClickCocktailBtn);
-refs.modal.addEventListener('click', onClickIngredientBtn);
+// refs.gallery.addEventListener('click', onClickCocktailBtn);
+// refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 refs.titleContainer2.style.display = 'none';
@@ -134,23 +133,6 @@ async function searchFormMobile(event) {
   }
 }
 
-function onClickCocktailBtn(event) {
-  refs.modalCreateCocktail.innerHTML = '';
-  // page = 1;
-  const ingredient = event.target.getAttribute('data-id');
-  const { id } = event.target.dataset;
-}
-
-function onClickIngredientBtn(event) {
-  refs.modalCreateIngredient.innerHTML = '';
-  const { name } = event.target.dataset;
-  console.log(name);
-  fetchNameIngredientCocktail(name).then(data => {
-    console.log(data);
-    createIngredientCard(data.ingredients);
-  });
-}
-
 async function onClickLetterCocktail(event) {
   refs.gallery.innerHTML = '';
   // page = 1;
@@ -193,92 +175,20 @@ async function onClickLetterCocktail(event) {
 
 // =====================================================
 
-// function saveAndRemoveFavoritCocktailsLS(event) {
-// const elParent = event.target.closest('.gallery-item');
-// if (event.target.classList.contains('js_btn_fav_add')) {
-// const btnRemove = elParent.children[1].children[1].children[2];
-// btnRemove.style.display = 'flex';
-// const btnAdd = elParent.children[1].children[1].children[1];
-// btnAdd.style.display = 'none';
-// } else if (event.target.classList.contains('js_btn_fav_remove')) {
-//   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-//   console.log(favorite);
-//   const cocktailNameRemove = event.target.getAttribute(
-//     'data-cocktail-name-remove'
-//   );
-//   const index = favorite.findIndex(drink => drink === cocktailNameRemove);
-//   favorite.splice(index, 1);
-//   removeFromLS('FavoriteCocktails', favorite);
-//   const btnRemove = elParent.children[1].children[1].children[2];
-//   console.log(btnRemove);
-//   btnRemove.style.display = 'none';
-//   const btnAdd = elParent.children[1].children[1].children[1];
-//   btnAdd.style.display = 'flex';
-// }
-/////////////=====================////////////////////////////////////////========================
-// let cocktailName = [];
-// cocktailName = event.target.getAttribute('data-cocktail-name');
-// saveToLS('FavoriteCocktails', cocktailName);
-//=======================================================
-// cocktails.push(index);
-// console.log(cocktailName);
-// localStorage.setItem('FavoriteCocktails', JSON.stringify(cocktails));
-// if (!cocktails.includes(cocktailName)) {
-//   cocktails.push(cocktailName);
-//   localStorage.setItem('FavoriteCocktails', cocktails);
-// } else {
-//   cocktails.splice(cocktails.indexOf(cocktailName), 1);
-//   localStorage.setItem('FavoriteCocktails', cocktails);
-// }
-// const elParent = event.target.closest('.gallery-item');
-// if (event.target.classList.contains('js_btn_fav_add')) {
-//======================================================//////////////////////////////////////
-// cocktailName = event.target.getAttribute('data-cocktail-name');
-// console.log(cocktailName);
-// fetchCocktails(cocktailName).then(data => {
-//   let drink = { ...data.drinks[0] };
-//   saveToLS('FavoriteCocktails', drink);
-// });
-//============================================================================////////////////////////
-// const btnRemove = elParent.children[1].children[1].children[2];
-// btnRemove.style.display = 'flex';
-// const btnAdd = elParent.children[1].children[1].children[1];
-// btnAdd.style.display = 'none';
-// }
-// }
-//========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
-// let favoriteDrinks;
-// if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
-//   favoriteDrinks = [];
-// } else {
-//   favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-// }
-async function saveAndRemoveFavoritCocktailsLS(event) {
-  cocktailName = event.target.getAttribute('data-cocktail-name');
-  saveToLS('FavoriteCocktails', cocktailName);
+function saveAndRemoveFavoritCocktailsLS(event) {
   // const elParent = event.target.closest('.gallery-item');
   // if (event.target.classList.contains('js_btn_fav_add')) {
-  //   // cocktailName = event.target.getAttribute('data-cocktail-name');
-  //   cocktail = elParent.children[1].children[0].children[0].textContent;
-  //   console.log(cocktail);
-  //   const data = await fetchCocktails(cocktail);
-  //   let drink = { ...data.drinks[0] };
-  //   // favoriteDrinks.push(drink);
-  //   saveToLS('FavoriteCocktails', drink);
-  //   const btnRemove = elParent.children[1].children[1].children[2];
-  //   btnRemove.style.display = 'flex';
-  //   const btnAdd = elParent.children[1].children[1].children[1];
-  //   console.log(btnAdd);
-  //   btnAdd.style.display = 'none';
+  // const btnRemove = elParent.children[1].children[1].children[2];
+  // btnRemove.style.display = 'flex';
+  // const btnAdd = elParent.children[1].children[1].children[1];
+  // btnAdd.style.display = 'none';
   // } else if (event.target.classList.contains('js_btn_fav_remove')) {
   //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
   //   console.log(favorite);
   //   const cocktailNameRemove = event.target.getAttribute(
   //     'data-cocktail-name-remove'
   //   );
-  //   const index = await favorite.findIndex(
-  //     data => data.strDrink === cocktailNameRemove
-  //   );
+  //   const index = favorite.findIndex(drink => drink === cocktailNameRemove);
   //   favorite.splice(index, 1);
   //   removeFromLS('FavoriteCocktails', favorite);
   //   const btnRemove = elParent.children[1].children[1].children[2];
@@ -287,7 +197,97 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
   //   const btnAdd = elParent.children[1].children[1].children[1];
   //   btnAdd.style.display = 'flex';
   // }
+  /////////////=====================////////////////////////////////////////========================
+  let cocktailName = [];
+  cocktailName = event.target.getAttribute('data-cocktail-name');
+  console.log(cocktailName);
+  saveToLS('FavoriteCocktails', cocktailName);
+  //=======================================================
+  // cocktails.push(index);
+  // console.log(cocktailName);
+  // localStorage.setItem('FavoriteCocktails', JSON.stringify(cocktails));
+  // if (!cocktails.includes(cocktailName)) {
+  //   cocktails.push(cocktailName);
+  //   localStorage.setItem('FavoriteCocktails', cocktails);
+  // } else {
+  //   cocktails.splice(cocktails.indexOf(cocktailName), 1);
+  //   localStorage.setItem('FavoriteCocktails', cocktails);
+  // }
+  // const elParent = event.target.closest('.gallery-item');
+  // if (event.target.classList.contains('js_btn_fav_add')) {
+  //======================================================//////////////////////////////////////
+  // cocktailName = event.target.getAttribute('data-cocktail-name');
+  // console.log(cocktailName);
+  // fetchCocktails(cocktailName).then(data => {
+  //   let drink = { ...data.drinks[0] };
+  //   saveToLS('FavoriteCocktails', drink);
+  // });
+  //============================================================================////////////////////////
+  // const btnRemove = elParent.children[1].children[1].children[2];
+  // btnRemove.style.display = 'flex';
+  // const btnAdd = elParent.children[1].children[1].children[1];
+  // btnAdd.style.display = 'none';
+  // }
 }
+//========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
+// let favoriteDrinks;
+// if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
+//   favoriteDrinks = [];
+// } else {
+//   favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+// }
+// async function saveAndRemoveFavoritCocktailsLS(event) {
+//   cocktailName = event.target.getAttribute('data-cocktail-name');
+//   saveToLS('FavoriteCocktails', cocktailName);
+//   // const elParent = event.target.closest('.gallery-item');
+//   // if (event.target.classList.contains('js_btn_fav_add')) {
+//   //   // cocktailName = event.target.getAttribute('data-cocktail-name');
+//   //   cocktail = elParent.children[1].children[0].children[0].textContent;
+//   //   console.log(cocktail);
+//   //   const data = await fetchCocktails(cocktail);
+//   //   let drink = { ...data.drinks[0] };
+//   //   // favoriteDrinks.push(drink);
+//   //   saveToLS('FavoriteCocktails', drink);
+//   //   const btnRemove = elParent.children[1].children[1].children[2];
+//   //   btnRemove.style.display = 'flex';
+//   //   const btnAdd = elParent.children[1].children[1].children[1];
+//   //   console.log(btnAdd);
+//   //   btnAdd.style.display = 'none';
+//   // } else if (event.target.classList.contains('js_btn_fav_remove')) {
+//   //   let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+//   //   console.log(favorite);
+//   //   const cocktailNameRemove = event.target.getAttribute(
+//   //     'data-cocktail-name-remove'
+//   //   );
+//   //   const index = await favorite.findIndex(
+//   //     data => data.strDrink === cocktailNameRemove
+//   //   );
+//   //   favorite.splice(index, 1);
+//   //   removeFromLS('FavoriteCocktails', favorite);
+//   //   const btnRemove = elParent.children[1].children[1].children[2];
+//   //   console.log(btnRemove);
+//   //   btnRemove.style.display = 'none';
+//   //   const btnAdd = elParent.children[1].children[1].children[1];
+//   //   btnAdd.style.display = 'flex';
+//   // }
+// }
+
+// function onClickCocktailBtn(event) {
+//   refs.modalCreateCocktail.innerHTML = '';
+//   // page = 1;
+//   const ingredient = event.target.getAttribute('data-id');
+//   const { id } = event.target.dataset;
+// }
+
+// function onClickIngredientBtn(event) {
+//   refs.modalCreateIngredient.innerHTML = '';
+//   const { name } = event.target.dataset;
+//   console.log(name);
+//   fetchNameIngredientCocktail(name).then(data => {
+//     console.log(data);
+//     createIngredientCard(data.ingredients);
+//   });
+// }
 
 // ====================ТЕМНАЯ ТЕМА=========================================
 document.addEventListener('DOMContentLoaded', () => {
