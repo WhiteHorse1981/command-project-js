@@ -199,7 +199,7 @@ function saveAndRemoveFavoritCocktailsLS(event) {
   //   btnAdd.style.display = 'flex';
   // }
   /////////////=====================////////////////////////////////////////========================
-  // let cocktailName = [];
+  let cocktailName = [];
   cocktailName = event.target.getAttribute('data-cocktail-name');
   console.log(cocktailName);
 
