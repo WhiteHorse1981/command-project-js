@@ -78,35 +78,60 @@ refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 refs.titleContainer2.style.display = 'none';
 
-function onSearchForm(event) {
+async function onSearchForm(event) {
   event.preventDefault();
   refs.gallery.innerHTML = '';
   // page = 1;
-  const query = event.currentTarget.searchQuery.value.trim();
 
-  fetchCocktails(query).then(data => {
+  try {
+    const query = event.currentTarget.searchQuery.value.trim();
+
+    const data = await fetchCocktails(query);
     createCocktail(data.drinks);
+
     const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
-  });
+
+    // fetchCocktails(query).then(data => {
+    //   createCocktail(data.drinks);
+    //   const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
+    //   for (let btn of btnRemove) {
+    //     btn.style.display = 'none';
+    //   }
+    // });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //====================ФОРМА ПОИСКА КОКТЕЙЛЕЙ В МОБИЛЬНОМ МЕНЮ=======================================================
-function searchFormMobile(event) {
+async function searchFormMobile(event) {
   event.preventDefault();
   refs.gallery.innerHTML = '';
   // page = 1;
-  const query = event.currentTarget.searchQuery.value.trim();
+  try {
+    const query = event.currentTarget.searchQuery.value.trim();
 
-  fetchCocktails(query).then(data => {
+    const data = await fetchCocktails(query);
     createCocktail(data.drinks);
+
     const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
-  });
+
+    // fetchCocktails(query).then(data => {
+    //   createCocktail(data.drinks);
+    //   const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
+    //   for (let btn of btnRemove) {
+    //     btn.style.display = 'none';
+    //   }
+    // });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function onClickCocktailBtn(event) {
@@ -126,12 +151,14 @@ function onClickIngredientBtn(event) {
   });
 }
 
-function onClickLetterCocktail(event) {
+async function onClickLetterCocktail(event) {
   refs.gallery.innerHTML = '';
   // page = 1;
-  const letter = event.target.textContent;
 
-  fetchLetterCocktails(letter).then(data => {
+  try {
+    const letter = event.target.textContent;
+
+    const data = await fetchCocktails(letter);
     if (data.drinks === null) {
       refs.titleContainer1.style.display = 'none';
       refs.gallery.innerHTML =
@@ -144,7 +171,24 @@ function onClickLetterCocktail(event) {
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
-  });
+
+    // fetchLetterCocktails(letter).then(data => {
+    //   if (data.drinks === null) {
+    //     refs.titleContainer1.style.display = 'none';
+    //     refs.gallery.innerHTML =
+    //       "<div><h2 class='title-error'>Sorry, we didn't find any cocktail for you</h2><div class='containerImg'></div></div >";
+    //   } else {
+    //     createCocktail(data.drinks);
+    //   }
+
+    //   const btnRemove = document.querySelectorAll('.js_btn_fav_remove');
+    //   for (let btn of btnRemove) {
+    //     btn.style.display = 'none';
+    //   }
+    // });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // =====================================================
@@ -203,6 +247,12 @@ function onClickLetterCocktail(event) {
 // }
 // }
 //========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
+let favoriteDrinks;
+if (JSON.parse(localStorage.getItem('favorites')) === null) {
+  favoriteDrinks = [];
+} else {
+  favoriteDrinks = JSON.parse(localStorage.getItem('favorites'));
+}
 async function saveAndRemoveFavoritCocktailsLS(event) {
   const elParent = event.target.closest('.gallery-item');
 
@@ -213,7 +263,8 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
 
     const data = await fetchCocktails(cocktailName);
     let drink = { ...data.drinks[0] };
-    saveToLS('FavoriteCocktails', drink);
+    favoriteDrinks.push(drink);
+    saveToLS('FavoriteCocktails', favoriteDrinks);
 
     const btnRemove = elParent.children[1].children[1].children[2];
     btnRemove.style.display = 'flex';
