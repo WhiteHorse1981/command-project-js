@@ -207,7 +207,8 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
   const elParent = event.target.closest('.gallery-item');
 
   if (event.target.classList.contains('js_btn_fav_add')) {
-    cocktailName = event.target.getAttribute('data-cocktail-name');
+    // cocktailName = event.target.getAttribute('data-cocktail-name');
+    cocktailName = elParent.children[1].children[0].children[0].textContent;
     console.log(cocktailName);
 
     const data = await fetchCocktails(cocktailName);
