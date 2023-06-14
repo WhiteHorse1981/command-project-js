@@ -18,8 +18,6 @@ import { openModalWindow } from './js/modalWindow.js';
 import { callMobileMenu } from './js/menuMobile.js';
 import { disableMobileMenuSearch } from './js/menuMobile.js';
 
-const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php';
-
 const refs = {
   gallery: document.querySelector('.gallery'),
   searchForm: document.querySelector('#search-form'),
@@ -40,11 +38,6 @@ const refs = {
   // btnTheme2: document.querySelector('.btn-them-2'),
   arrow: document.querySelector('.arrow'),
   arrowMobile: document.querySelector('.arrow-mobile'),
-};
-
-const axiosGetImages = query => {
-  const res = axios.get(`${BASE_URL}?s=${query}`);
-  return res;
 };
 
 //====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
@@ -183,7 +176,7 @@ async function onClickLetterCocktail(event) {
 
 // =====================================================
 
-async function saveAndRemoveFavoritCocktailsLS(event) {
+function saveAndRemoveFavoritCocktailsLS(event) {
   // const elParent = event.target.closest('.gallery-item');
   // if (event.target.classList.contains('js_btn_fav_add')) {
   // const btnRemove = elParent.children[1].children[1].children[2];
@@ -210,14 +203,12 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
   cocktailName = event.target.getAttribute('data-cocktail-name');
   console.log(cocktailName);
 
-  const { data } = await axiosGetImages(cocktailName);
-  let drink = { ...data.drinks[0] };
   // fetchCocktails(cocktailName).then(data => {
   //   let drink = { ...data.drinks[0] };
   //   saveToLS('FavoriteCocktails', drink);
   // });
 
-  saveToLS('FavoriteCocktails', drink);
+  saveToLS('FavoriteCocktails', cocktailName);
   //=======================================================
   // cocktails.push(index);
   // console.log(cocktailName);
