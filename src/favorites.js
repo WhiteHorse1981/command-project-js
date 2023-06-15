@@ -16,7 +16,7 @@ const refs = {
   arrowMobile: document.querySelector('.arrow-mobile'),
 };
 
-refs.searchForm.addEventListener('submit', onSearchForm);
+refs.searchForm.addEventListener('submit', onSearchFormCoctailsLS);
 refs.titleContainer1.style.display = 'none';
 refs.gallery.addEventListener('click', removeLSFavoritCocktailLS);
 refs.arrow.addEventListener('click', onClickMenuHeader);
@@ -27,11 +27,9 @@ refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 //====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
 callMobileMenu();
 
-function onSearchForm(event) {
-  event.preventDefault();
-}
-
-window.addEventListener('load', loadLSCocktails);
+// function onSearchForm(event) {
+//   event.preventDefault();
+// }
 
 // let cocktailsFavorites = [];
 
@@ -71,15 +69,39 @@ window.addEventListener('load', loadLSCocktails);
 //   }
 // }
 
-let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
-console.log(favorite);
+let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+console.log(favorites);
 
+function onSearchFormCoctailsLS(event) {
+  event.preventDefault();
+  refs.gallery.innerHTML = '';
+  // page = 1;
+
+  try {
+    const cocktailName = event.currentTarget.searchQuery.value.trim();
+    console.log(cocktailName);
+
+    const newCocktailsArray = favorites.filter(
+      favorites => favorites.strDrink === cocktailName
+    );
+
+    createCocktail(newCocktailsArray);
+    const btnAdd = document.querySelectorAll('.js_btn_fav_add');
+    for (let btn of btnAdd) {
+      btn.style.display = 'none';
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+window.addEventListener('load', loadLSCocktails);
 function loadLSCocktails() {
-  if (!favorite || favorite.length === 0) {
+  if (!favorites || favorites.length === 0) {
     refs.gallery.innerHTML =
       "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
   } else {
-    createCocktail(favorite);
+    createCocktail(favorites);
 
     const btnAdd = document.querySelectorAll('.js_btn_fav_add');
     for (let btn of btnAdd) {
@@ -89,22 +111,20 @@ function loadLSCocktails() {
 }
 
 async function removeLSFavoritCocktailLS(event) {
-  const cocktailNameRemove = event.target.getAttribute(
-    'data-cocktail-name-remove'
-  );
+  const btnRemove = event.target.getAttribute('data-cocktail-name-remove');
 
-  const index = await favorite.findIndex(
-    data => data.strDrink === cocktailNameRemove
-  );
+  console.log(btnRemove);
 
-  favorite.splice(index, 1);
+  const index = await favorites.findIndex(data => data.strDrink === btnRemove);
+
+  favorites.splice(index, 1);
 
   refs.gallery.innerHTML = '';
-  console.log(favorite);
+  console.log(favorites);
 
-  createCocktail(favorite);
+  createCocktail(favorites);
 
-  removeFromLS('FavoriteCocktails', favorite);
+  removeFromLS('FavoriteCocktails', favorites);
 
   const btnAdd = document.querySelectorAll('.js_btn_fav_add');
   for (let btn of btnAdd) {
