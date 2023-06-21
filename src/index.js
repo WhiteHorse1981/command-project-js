@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { saveToLS, loadFromLS, removeFromLS } from './js/localSt.js';
-
 import {
   fetchCocktails,
   fetchLetterCocktails,
   fetchRandomCocktails,
   fetchIngredientCocktails,
+  fetchNameIngredientCocktail,
 } from './js/fetchCocktails';
 import {
   createCocktail,
@@ -27,7 +26,7 @@ const refs = {
   searchLetterCocktail: document.querySelector('.js-letter-cocktail-2'),
   modal: document.querySelector('.modal'),
   // closeModalBtn: document.querySelector('.modal-close-btn'),
-  // modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
+  modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
   titleContainer2: document.querySelector('.title-2'),
   titleContainer1: document.querySelector('.title-1'),
   // modalIngredient: document.querySelector('.modal-ingredient'),
@@ -72,7 +71,7 @@ refs.searchLetterCocktail.addEventListener('click', onClickLetterCocktail);
 refs.gallery.addEventListener('click', saveAndRemoveFavoritCocktailsLS);
 refs.gallery.addEventListener('click', openModalWindow);
 refs.modal.addEventListener('click', openModalWindow);
-// refs.gallery.addEventListener('click', onClickCocktailBtn);
+refs.gallery.addEventListener('click', onClickCocktailBtn);
 // refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
@@ -220,13 +219,12 @@ if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
   favoriteDrinks = JSON.parse(localStorage.getItem('FavoriteCocktails'));
 }
 async function saveAndRemoveFavoritCocktailsLS(event) {
-  // cocktailName = event.target.getAttribute('data-cocktail-name');
+  // const cocktailName = event.target.getAttribute('data-cocktail-name');
   // saveToLS('FavoriteCocktails', cocktailName);
   const elParent = event.target.closest('.gallery-item');
   if (event.target.classList.contains('js_btn_fav_add')) {
-    // cocktailName = event.target.getAttribute('data-cocktail-name');
-
-    cocktailName = elParent.children[1].children[0].children[0].textContent;
+    const cocktailName =
+      elParent.children[1].children[0].children[0].textContent;
     console.log(cocktailName);
 
     const data = await fetchCocktails(cocktailName);
@@ -239,17 +237,11 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
     console.log(btnAdd);
     btnAdd.style.display = 'none';
   } else if (event.target.classList.contains('js_btn_fav_remove')) {
-    let favorite = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+    let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
 
-    console.log(favorite);
-    const cocktailNameRemove = event.target.getAttribute(
-      'data-cocktail-name-remove'
-    );
-    const index = await favorite.findIndex(
-      data => data.strDrink === cocktailNameRemove
-    );
-    favorite.splice(index, 1);
-    removeFromLS('FavoriteCocktails', favorite);
+    favorites = favorites.filter(drink => drink.idDrink !== elParent.id);
+    removeFromLS('FavoriteCocktails', favorites);
+
     const btnRemove = elParent.children[1].children[1].children[2];
     console.log(btnRemove);
     btnRemove.style.display = 'none';
@@ -258,19 +250,44 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
   }
 }
 
-// function onClickCocktailBtn(event) {
-//   refs.modalCreateCocktail.innerHTML = '';
-//   // page = 1;
-//   const ingredient = event.target.getAttribute('data-id');
-//   const { id } = event.target.dataset;
-// }
+async function onClickCocktailBtn(event) {
+  refs.modalCreateCocktail.innerHTML = '';
+  const elParent = event.target.closest('.gallery-item');
+  if (event.target.classList.contains('js-learn-btn')) {
+    const data = await fetchIngredientCocktails(elParent.id);
+
+    createIngredientCocktail(data.drinks);
+
+    const ingredients = document.querySelectorAll('.modal-ingredient-link');
+
+    for (let i = 0; i < ingredients.length; i++) {
+      if (ingredients[i].dataset.ingredientName == 'null') {
+        ingredients[i].textContent = '';
+      }
+    }
+
+    const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
+    for (let btn of btnRemove) {
+      btn.style.display = 'none';
+    }
+
+    // fetchIngredientCocktails(elParent.id).then(data => {
+    //   createIngredientCocktail(data.drinks);
+    //   console.log(data.drinks);
+    //   const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
+    //   for (let btn of btnRemove) {
+    //     btn.style.display = 'none';
+    //   }
+    // });
+  }
+}
 
 // function onClickIngredientBtn(event) {
-//   refs.modalCreateIngredient.innerHTML = '';
+//   // refs.modalCreateIngredient.innerHTML = '';
 //   const { name } = event.target.dataset;
 //   console.log(name);
 //   fetchNameIngredientCocktail(name).then(data => {
-//     console.log(data);
+//     console.log(data.ingredients);
 //     createIngredientCard(data.ingredients);
 //   });
 // }

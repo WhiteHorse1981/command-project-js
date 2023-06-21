@@ -22,9 +22,9 @@ export function loadFromLS(key) {
 }
 
 export function removeFromLS(key, value) {
-  let arrayFromLocalStorage = JSON.parse(localStorage.getItem(key));
+  // let arrayFromLocalStorage = JSON.parse(localStorage.getItem(key));
 
-  arrayFromLocalStorage.splice(value, 1);
+  // arrayFromLocalStorage.splice(value, 1);
 
-  localStorage.setItem(key, JSON.stringify(arrayFromLocalStorage));
+  localStorage.setItem(key, JSON.stringify(value));
 }

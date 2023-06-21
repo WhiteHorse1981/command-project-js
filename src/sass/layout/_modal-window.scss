@@ -1,8 +1,8 @@
-.modal-container-1 {
+.modal-container-mobile{
   display: block;
 }
 
-.modal-container-2 {
+.modal-container {
   display: none;
 }
 
@@ -55,7 +55,7 @@
 
 .backdrop.is-hidden {
   opacity: 0;
-  visibility: hidden;
+  // visibility: hidden;
   pointer-events: none;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .info-descr {
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .modal-container__img {
@@ -124,11 +124,11 @@
 
 @media screen and (min-width: 768px) {
 
-  .modal-container-1 {
+  .modal-container-mobile {
     display: none;
   }
 
-  .modal-container-2 {
+  .modal-container {
     display: block;
   }
 
@@ -185,9 +185,9 @@
     margin-bottom: 24px;
   }
 
-  .info-descr {
-    margin-bottom: 40px;
-  }
+  // .info-descr {
+  //   margin-bottom: 40px;
+  // }
 
   .modal-btn {
     display: flex;

@@ -14,7 +14,7 @@ export function createCocktail(cocktails) {
         cocktail;
       return `
         
-          <div class="gallery-item gallery__link">
+          <div id="${idDrink}" class="gallery-item gallery__link">
             <img class="gallery-item__img" src="${strDrinkThumb}" alt="${strImageAttribution}" loading="lazy" />
             <div class="info">
               <div class="info-item">
@@ -25,7 +25,7 @@ export function createCocktail(cocktails) {
                   <button type="button" class="info-btn-descr info-btn js-learn-btn" data-modal-open="${strDrink}" data-id="${idDrink}">Learn more</button>
                 
                 
-                  <button type="button" data-id="${idDrink}" class="add-descr add-favorite js_btn_fav_add" data-cocktail-name="${strDrink}">
+                  <button type="button" class="add-descr add-favorite js_btn_fav_add" data-cocktail-name="${strDrink}">
                   Add to
                   
                 
@@ -70,42 +70,53 @@ export function createIngredientCocktail(ingredients) {
         strIngredient3,
         strIngredient4,
         strIngredient5,
+        strIngredient6,
+        strIngredient7,
+        strIngredient8,
+        strIngredient9,
+        strIngredient10,
+        strIngredient11,
+        strIngredient12,
+        strIngredient13,
+        strIngredient14,
+        strIngredient15,
       } = ingredient;
-      return `
-      <div class="modal-container-1">
-      <h2 class="modal-container__header">${strDrink}</h2>
-      <div class="modal-container__descr">
-        <h3 class="modal-container__descr-header">Instractions:</h3>
-        <p class="info-descr">${strInstructions}</p>
-      </div>
-      <img class="modal-container__img" src="${strDrinkThumb}" alt="${strImageAttribution}" loading="lazy"/>
-      <div class="modal-ingredients">
-        <h3 class="modal-ingredients__header">INGREDIENTS</h3>
-        <h4 class="modal-ingredients__subheader">Per cocktail</h4>
-        <ul class="modal-ingredients__list">
-          <li>
-            <a href="">${strIngredient1}</a>
-          </li>
-          <li>
-            <a href="">${strIngredient2}</a>
-          </li>
-          <li>
-            <a href="">${strIngredient3}</a>
-          </li>
-          <li>
-            <a href="">${strIngredient4}</a>
-          </li>
-          <li>
-            <a href="">${strIngredient5}</a>
-          </li>
-        </ul>
 
-        <button type="button" class="add-favorite modal-btn">Add To Favorite</button>
-        <!-- <button type="button" class="add-favorite modal-btn">Remove from favorite</button> -->
+      return `
+    <div class="modal-container-mobile">
+        <h2 class="modal-container__header">${strDrink}</h2>
+        <div class="modal-container__descr">
+          <h3 class="modal-container__descr-header">Instractions:</h3>
+          <p class="info-descr">${strInstructions}</p>
+        </div>
+        <img class="modal-container__img" src="${strDrinkThumb}" alt="${strImageAttribution}" loading="lazy"/>
+        <div class="modal-ingredients">
+          <h3 class="modal-ingredients__header">INGREDIENTS</h3>
+          <h4 class="modal-ingredients__subheader">Per cocktail:</h4>
+          <ul class="modal-ingredients__list">
+            <li>
+              <a class="modal-ingredient-link" data-ingredient-name="${strIngredient1}" href="" >${strIngredient1}</a>
+            </li>
+            <li>
+              <a class="modal-ingredient-link" data-ingredient-name="${strIngredient2}" href="" >${strIngredient2}</a>
+            </li>
+            <li>
+              <a class="modal-ingredient-link" data-ingredient-name="${strIngredient3}" href="" >${strIngredient3}</a>
+            </li>
+            <li>
+              <a class="modal-ingredient-link" data-ingredient-name="${strIngredient4}" href="" >${strIngredient4}</a>
+            </li>
+            <li>
+              <a class="modal-ingredient-link" data-ingredient-name="${strIngredient5}"  href="" >${strIngredient5}</a>
+            </li>
+          </ul>
+
+          <button type="button" class="add-favorite modal-btn js-add-to-favorite">Add To Favorite</button>
+          <button type="button" class="add-favorite modal-btn js-remove-from-favorite">Remove from favorite</button>
       </div>
     </div>
 
-    <div class="modal-container-2">
+    <div class="modal-container">
       <div class="modal-container-flex">
         <div class="modal-container__img">
           <img class="modal-img" src="${strDrinkThumb}" alt="${strImageAttribution}" loading="lazy"/>
@@ -114,34 +125,33 @@ export function createIngredientCocktail(ingredients) {
           <h2 class="modal-container__header">${strDrink}</h2>
           <div class="modal-ingredients">
             <h3 class="modal-ingredients__header">INGREDIENTS</h3>
-            <h4 class="modal-ingredients__subheader">Per cocktail</h4>
+            <h4 class="modal-ingredients__subheader">Per cocktail:</h4>
             <ul class="modal-ingredients__list">
               <li>
-                <a href="">${strIngredient1}</a>
+                <a class="modal-ingredient-link" data-ingredient-name="${strIngredient1}" href="" >${strIngredient1}</a>
               </li>
               <li>
-                <a href="">${strIngredient2}</a>
+                <a class="modal-ingredient-link" data-ingredient-name="${strIngredient2}" href="" >${strIngredient2}</a>
               </li>
               <li>
-                <a href="">${strIngredient3}</a>
+                <a class="modal-ingredient-link" data-ingredient-name="${strIngredient3}" href="" >${strIngredient3}</a>
               </li>
               <li>
-                <a href="">${strIngredient4}</a>
+                <a class="modal-ingredient-link" data-ingredient-name="${strIngredient4}" href="" >${strIngredient4}</a>
               </li>
               <li>
-                <a href="">${strIngredient5}</a>
+                <a class="modal-ingredient-link" data-ingredient-name="${strIngredient5}" href="" >${strIngredient5}</a>
               </li>
             </ul>
         </div>
       </div>
     </div>
-        <div class="modal-container__descr">
-          <h3 class="modal-container__descr-header">Instractions:</h3>
-          <p class="info-descr">${strInstructions}</p>
-        </div>
-        <button type="button" class="add-favorite modal-btn">Add To Favorite</button>
-        <!-- <button type="button" class="add-favorite modal-btn">Remove from favorite</button> -->
+    <div class="modal-container__descr">
+      <h3 class="modal-container__descr-header">Instractions:</h3>
+      <p class="info-descr">${strInstructions}</p>
     </div>
+    <button type="button" class="add-favorite modal-btn js-add-to-favorite">Add To Favorite</button>
+    <button type="button" class="add-favorite modal-btn js-remove-from-favorite">Remove from favorite</button>
       `;
     })
     .join('');
