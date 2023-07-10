@@ -142,19 +142,18 @@ function onClickCocktailBtn(event) {
     fetchIngredientCocktails(elParent.id).then(data => {
       createIngredientCocktail(data.drinks);
 
-      const ingredients = document.querySelectorAll('.modal-ingredient-link');
+      const ingredients = document.querySelectorAll('.modal-ingredient-btn');
 
       for (let i = 0; i < ingredients.length; i++) {
         if (ingredients[i].dataset.ingredientName == 'null') {
           ingredients[i].textContent = '';
         }
       }
-      console.log(data);
-      const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
-      for (let btn of btnRemove) {
-        btn.style.display = 'none';
-      }
     });
+    const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
+    for (let btn of btnRemove) {
+      btn.style.display = 'none';
+    }
   }
 }
 

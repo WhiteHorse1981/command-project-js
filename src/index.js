@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { saveToLS, loadFromLS, removeFromLS } from './js/localSt.js';
 import {
   fetchCocktails,
@@ -11,9 +12,10 @@ import {
   createIngredientCocktail,
   createMarkup,
   createMarkupDesktop,
+  createIngredientCard,
 } from './js/createMarkap.js';
 
-import { openModalWindow } from './js/modalWindow.js';
+import { openModalWindow, openModalIngredient } from './js/modalWindow.js';
 import { callMobileMenu } from './js/menuMobile.js';
 import { disableMobileMenuSearch } from './js/menuMobile.js';
 
@@ -27,10 +29,11 @@ const refs = {
   modal: document.querySelector('.modal'),
   // closeModalBtn: document.querySelector('.modal-close-btn'),
   modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
+  modalingredient: document.querySelector('.modal-create-ingredient'),
   titleContainer2: document.querySelector('.title-2'),
   titleContainer1: document.querySelector('.title-1'),
   // modalIngredient: document.querySelector('.modal-ingredient'),
-  // modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
+  modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
   // boxContainerTheme: document.querySelector('.js-theme-box'),
   btnDarkTheme: document.querySelector('.js-dark-them'),
   // btnTheme1: document.querySelector('.btn-them-1'),
@@ -71,8 +74,10 @@ refs.searchLetterCocktail.addEventListener('click', onClickLetterCocktail);
 refs.gallery.addEventListener('click', saveAndRemoveFavoritCocktailsLS);
 refs.gallery.addEventListener('click', openModalWindow);
 refs.modal.addEventListener('click', openModalWindow);
+refs.gallery.addEventListener('click', openModalIngredient);
+refs.modal.addEventListener('click', openModalIngredient);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
-// refs.modal.addEventListener('click', onClickIngredientBtn);
+refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 refs.titleContainer2.style.display = 'none';
@@ -253,12 +258,13 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
 async function onClickCocktailBtn(event) {
   refs.modalCreateCocktail.innerHTML = '';
   const elParent = event.target.closest('.gallery-item');
+  console.log(elParent);
   if (event.target.classList.contains('js-learn-btn')) {
     const data = await fetchIngredientCocktails(elParent.id);
 
     createIngredientCocktail(data.drinks);
 
-    const ingredients = document.querySelectorAll('.modal-ingredient-link');
+    const ingredients = document.querySelectorAll('.modal-ingredient-btn');
 
     for (let i = 0; i < ingredients.length; i++) {
       if (ingredients[i].dataset.ingredientName == 'null') {
@@ -267,6 +273,7 @@ async function onClickCocktailBtn(event) {
     }
 
     const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
+    console.log(btnRemove);
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
@@ -282,15 +289,33 @@ async function onClickCocktailBtn(event) {
   }
 }
 
-// function onClickIngredientBtn(event) {
-//   // refs.modalCreateIngredient.innerHTML = '';
-//   const { name } = event.target.dataset;
-//   console.log(name);
-//   fetchNameIngredientCocktail(name).then(data => {
-//     console.log(data.ingredients);
-//     createIngredientCard(data.ingredients);
-//   });
-// }
+const INGR_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php';
+const axiosGetIngrByName = query => {
+  const res = axios.get(`${INGR_URL}?i=${query}`);
+  return res;
+};
+
+async function onClickIngredientBtn(event) {
+  refs.modalCreateIngredient.innerHTML = '';
+  const nameIngredient = event.target.getAttribute('data-ingredient-name');
+  // const nameIngredient = event.target.textContent;
+  console.log(nameIngredient);
+  const data = await fetchNameIngredientCocktail(nameIngredient);
+  console.log(data);
+
+  createIngredientCard(data.ingredients);
+
+  const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
+  console.log(btnRemove);
+  for (let btn of btnRemove) {
+    btn.style.display = 'none';
+  }
+
+  // fetchNameIngredientCocktail(name).then(data => {
+  //   console.log(data.ingredients);
+  //   createIngredientCard(data.ingredients);
+  // });
+}
 
 // ====================ТЕМНАЯ ТЕМА=========================================
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,6 +1,7 @@
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
 const RANDOM_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const ID_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?';
+const INGR_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php';
 
 export async function fetchCocktails(query) {
   const response = await fetch(`${BASE_URL}s=${query}`);
@@ -31,8 +32,8 @@ export async function fetchIngredientCocktails(idCocktail) {
 }
 
 export async function fetchNameIngredientCocktail(ingredient) {
-  const response = await fetch(`${BASE_URL}i=${ingredient}`);
+  const response = await fetch(`${INGR_URL}?i=${ingredient}`);
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
   return data;
 }
