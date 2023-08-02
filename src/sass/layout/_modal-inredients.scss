@@ -1,9 +1,25 @@
 .modal {
     position: relative;
+    margin: auto;
     width: 320px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
+}
+
+.ingredient-modal {
+    padding: 20px;
+}
+
+.modal-container__img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.btn-bottom-wrapper {
+    display: flex;
+    justify-content: center;
 }
 
 .modal-ingredient-btn {
@@ -45,6 +61,7 @@
     color: #202025;
     margin-left: 0;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .modal-container__descr-header {
@@ -60,6 +77,7 @@
 
 .modal-btn {
     margin-left: 0;
+    margin-top: 20px;
     background-color: #FD5103;
     border-radius: 4px;
     font-weight: 400;
@@ -83,7 +101,10 @@
     border-radius: 4px;
 }
 
-
+.btn-bottom-wrapper {
+    display: flex;
+    justify-content: end;
+}
 
 .modal-container-flex {
     display: flex;

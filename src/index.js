@@ -31,6 +31,7 @@ const refs = {
   modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
   modalingredient: document.querySelector('.modal-create-ingredient'),
   titleContainer2: document.querySelector('.title-2'),
+  titleContainer3: document.querySelector('.title-3'),
   titleContainer1: document.querySelector('.title-1'),
   // modalIngredient: document.querySelector('.modal-ingredient'),
   modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
@@ -74,6 +75,14 @@ refs.searchLetterCocktail.addEventListener('click', onClickLetterCocktail);
 refs.gallery.addEventListener('click', saveAndRemoveFavoritCocktailsLS);
 refs.gallery.addEventListener('click', openModalWindow);
 refs.modal.addEventListener('click', openModalWindow);
+refs.modal.addEventListener(
+  'click',
+  saveAndRemoveFavoritCocktailsLStoModalMobile
+);
+refs.modal.addEventListener(
+  'click',
+  saveAndRemoveFavoritCocktailsLStoModalDesktop
+);
 refs.gallery.addEventListener('click', openModalIngredient);
 refs.modal.addEventListener('click', openModalIngredient);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
@@ -81,6 +90,7 @@ refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 refs.titleContainer2.style.display = 'none';
+refs.titleContainer3.style.display = 'none';
 
 async function onSearchForm(event) {
   event.preventDefault();
@@ -216,7 +226,7 @@ async function onClickLetterCocktail(event) {
 //   saveToLS('FavoriteCocktails', cocktailName);
 
 // }
-//========СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS==================//
+//======== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ==================//
 let favoriteDrinks;
 if (JSON.parse(localStorage.getItem('FavoriteCocktails')) === null) {
   favoriteDrinks = [];
@@ -255,10 +265,74 @@ async function saveAndRemoveFavoritCocktailsLS(event) {
   }
 }
 
+//==================== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ МОБИЛЬНОГО МОДАЛЬНОГО ОКНА =====================
+
+async function saveAndRemoveFavoritCocktailsLStoModalMobile(event) {
+  const elParent = event.target.closest('.modal-container-mobile');
+  if (event.target.classList.contains('js-add-to-favorite')) {
+    const cocktailName = elParent.children[0].textContent;
+
+    const data = await fetchCocktails(cocktailName);
+    let drink = { ...data.drinks[0] };
+
+    saveToLS('FavoriteCocktails', drink);
+    const btnRemove = elParent.children[4].children[1];
+    btnRemove.style.display = 'flex';
+    const btnAdd = elParent.children[4].children[0];
+    btnAdd.style.display = 'none';
+  } else if (event.target.classList.contains('js-remove-from-favorite')) {
+    const cocktailName = elParent.children[0].textContent;
+
+    let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+    favorites = favorites.filter(drink => drink.strDrink !== cocktailName);
+
+    removeFromLS('FavoriteCocktails', favorites);
+
+    const btnRemove = elParent.children[4].children[1];
+    btnRemove.style.display = 'none';
+    const btnAdd = elParent.children[4].children[0];
+    btnAdd.style.display = 'flex';
+  }
+}
+
+//============================================================================================
+//==================== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ ДЕСКТОПНОГО И ПЛАНШЕТНОГО МОДАЛЬНОГО ОКНА =====================
+
+async function saveAndRemoveFavoritCocktailsLStoModalDesktop(event) {
+  const elParent = event.target.closest('.modal-container');
+  if (event.target.classList.contains('js-add-to-favorite')) {
+    const cocktailName =
+      elParent.children[0].children[1].children[0].textContent;
+
+    const data = await fetchCocktails(cocktailName);
+    let drink = { ...data.drinks[0] };
+
+    saveToLS('FavoriteCocktails', drink);
+    const btnRemove = elParent.children[2].children[1];
+    btnRemove.style.display = 'flex';
+    const btnAdd = elParent.children[2].children[0];
+    btnAdd.style.display = 'none';
+  } else if (event.target.classList.contains('js-remove-from-favorite')) {
+    const cocktailName =
+      elParent.children[0].children[1].children[0].textContent;
+
+    let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+    favorites = favorites.filter(drink => drink.strDrink !== cocktailName);
+
+    removeFromLS('FavoriteCocktails', favorites);
+
+    const btnRemove = elParent.children[2].children[1];
+    btnRemove.style.display = 'none';
+    const btnAdd = elParent.children[2].children[0];
+    btnAdd.style.display = 'flex';
+  }
+}
+
+//============================================================================================
+
 async function onClickCocktailBtn(event) {
   refs.modalCreateCocktail.innerHTML = '';
   const elParent = event.target.closest('.gallery-item');
-  console.log(elParent);
   if (event.target.classList.contains('js-learn-btn')) {
     const data = await fetchIngredientCocktails(elParent.id);
 
@@ -274,6 +348,7 @@ async function onClickCocktailBtn(event) {
 
     const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
     console.log(btnRemove);
+
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
@@ -289,32 +364,21 @@ async function onClickCocktailBtn(event) {
   }
 }
 
-const INGR_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php';
-const axiosGetIngrByName = query => {
-  const res = axios.get(`${INGR_URL}?i=${query}`);
-  return res;
-};
-
-async function onClickIngredientBtn(event) {
+function onClickIngredientBtn(event) {
   refs.modalCreateIngredient.innerHTML = '';
   const nameIngredient = event.target.getAttribute('data-ingredient-name');
-  // const nameIngredient = event.target.textContent;
-  console.log(nameIngredient);
-  const data = await fetchNameIngredientCocktail(nameIngredient);
-  console.log(data);
+  fetchNameIngredientCocktail(nameIngredient).then(data => {
+    console.log(data.ingredients);
+    createIngredientCard(data.ingredients);
 
-  createIngredientCard(data.ingredients);
-
-  const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
-  console.log(btnRemove);
-  for (let btn of btnRemove) {
-    btn.style.display = 'none';
-  }
-
-  // fetchNameIngredientCocktail(name).then(data => {
-  //   console.log(data.ingredients);
-  //   createIngredientCard(data.ingredients);
-  // });
+    const btnRemove = document.querySelectorAll(
+      '.js-remove-from-favorite-ingredient-2'
+    );
+    console.log(btnRemove);
+    for (let btn of btnRemove) {
+      btn.style.display = 'none';
+    }
+  });
 }
 
 // ====================ТЕМНАЯ ТЕМА=========================================

@@ -1,8 +1,20 @@
 import { loadFromLS, removeFromLS, saveToLS } from './js/localSt.js';
 import { callMobileMenu } from './js/menuMobile.js';
-import { openModalWindow } from './js/modalWindow.js';
-import { fetchIngredientCocktails } from './js/fetchCocktails';
-import { createCocktail, createIngredientCocktail } from './js/createMarkap.js';
+import { openModalWindow, openModalIngredient } from './js/modalWindow.js';
+import {
+  fetchCocktails,
+  fetchLetterCocktails,
+  fetchRandomCocktails,
+  fetchIngredientCocktails,
+  fetchNameIngredientCocktail,
+} from './js/fetchCocktails';
+import {
+  createCocktail,
+  createIngredientCocktail,
+  createMarkup,
+  createMarkupDesktop,
+  createIngredientCard,
+} from './js/createMarkap.js';
 
 // =======================LISTENER =========================================================
 const refs = {
@@ -14,21 +26,35 @@ const refs = {
   favoritCocktails: document.querySelector('.favorit'),
   modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
   modal: document.querySelector('.modal'),
+  modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
   // btnFavRemove: document.querySelector('.js_btn_fav_remove'),
   btnLS: document.querySelector('.add-descr'),
   titleContainer1: document.querySelector('.title-1'),
+  titleContainer3: document.querySelector('.title-3'),
   arrow: document.querySelector('.arrow'),
   arrowMobile: document.querySelector('.arrow-mobile'),
 };
 
 refs.searchForm.addEventListener('submit', onSearchFormCoctailsLS);
 refs.titleContainer1.style.display = 'none';
+refs.titleContainer3.style.display = 'none';
 refs.gallery.addEventListener('click', removeLSFavoritCocktailLS);
 refs.arrow.addEventListener('click', onClickMenuHeader);
 refs.arrowMobile.addEventListener('click', onClickMobileMenuHeader);
 refs.gallery.addEventListener('click', openModalWindow);
 refs.modal.addEventListener('click', openModalWindow);
+refs.gallery.addEventListener('click', openModalIngredient);
+refs.modal.addEventListener('click', openModalIngredient);
+refs.modal.addEventListener('click', onClickIngredientBtn);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
+refs.modal.addEventListener(
+  'click',
+  addAndremoveFavoritCocktailsLStoModalDesktop
+);
+refs.modal.addEventListener(
+  'click',
+  addAndremoveFavoritCocktailsLStoModalMobile
+);
 
 // ======================================================================================
 
@@ -149,11 +175,130 @@ function onClickCocktailBtn(event) {
           ingredients[i].textContent = '';
         }
       }
+
+      const btnAdd = document.querySelectorAll('.js-add-to-favorite-2');
+      console.log(btnAdd);
+
+      for (let btn of btnAdd) {
+        btn.style.display = 'none';
+      }
     });
-    const btnRemove = document.querySelectorAll('.js-remove-from-favorite');
+  }
+}
+
+function onClickIngredientBtn(event) {
+  refs.modalCreateIngredient.innerHTML = '';
+  const nameIngredient = event.target.getAttribute('data-ingredient-name');
+
+  fetchNameIngredientCocktail(nameIngredient).then(data => {
+    console.log(data.ingredients);
+    createIngredientCard(data.ingredients);
+
+    const btnRemove = document.querySelectorAll(
+      '.js-remove-from-favorite-ingredient-2'
+    );
+    console.log(btnRemove);
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
+  });
+}
+
+//==================== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ ДЕСКТОПНОГО И ПЛАНШЕТНОГО МОДАЛЬНОГО ОКНА =====================
+
+async function addAndremoveFavoritCocktailsLStoModalDesktop(event) {
+  const elParent = event.target.closest('.modal-container');
+  if (event.target.classList.contains('js-add-to-favorite')) {
+    const cocktailName =
+      elParent.children[0].children[1].children[0].textContent;
+
+    const data = await fetchCocktails(cocktailName);
+    let drink = { ...data.drinks[0] };
+
+    saveToLS('FavoriteCocktails', drink);
+    refs.gallery.innerHTML = '';
+    createCocktail(favorites);
+
+    const btnAddCocktail = document.querySelectorAll('.js_btn_fav_add');
+    for (let btn of btnAddCocktail) {
+      btn.style.display = 'none';
+    }
+
+    // createCocktail(drink);
+    // location.reload();
+
+    const btnRemove = elParent.children[2].children[1];
+    btnRemove.style.display = 'flex';
+    const btnAdd = elParent.children[2].children[0];
+    btnAdd.style.display = 'none';
+  } else if (event.target.classList.contains('js-remove-from-favorite')) {
+    const cocktailName =
+      elParent.children[0].children[1].children[0].textContent;
+
+    let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+    favorites = favorites.filter(drink => drink.strDrink !== cocktailName);
+
+    removeFromLS('FavoriteCocktails', favorites);
+    refs.gallery.innerHTML = '';
+    createCocktail(favorites);
+
+    const btnAddCocktail = document.querySelectorAll('.js_btn_fav_add');
+    for (let btn of btnAddCocktail) {
+      btn.style.display = 'none';
+    }
+
+    // createCocktail(favorites);
+    // location.reload();
+
+    const btnRemove = elParent.children[2].children[1];
+    btnRemove.style.display = 'none';
+    const btnAdd = elParent.children[2].children[0];
+    btnAdd.style.display = 'flex';
+  }
+}
+
+//==================== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ МОБИЛЬНОГО МОДАЛЬНОГО ОКНА =====================
+
+async function addAndremoveFavoritCocktailsLStoModalMobile(event) {
+  const elParent = event.target.closest('.modal-container-mobile');
+  if (event.target.classList.contains('js-add-to-favorite')) {
+    const cocktailName = elParent.children[0].textContent;
+
+    const data = await fetchCocktails(cocktailName);
+    let drink = { ...data.drinks[0] };
+
+    saveToLS('FavoriteCocktails', drink);
+    refs.gallery.innerHTML = '';
+    createCocktail(favorites);
+
+    const btnAddCocktail = document.querySelectorAll('.js_btn_fav_add');
+    for (let btn of btnAddCocktail) {
+      btn.style.display = 'none';
+    }
+
+    const btnRemove = elParent.children[4].children[1];
+    btnRemove.style.display = 'flex';
+    const btnAdd = elParent.children[4].children[0];
+    btnAdd.style.display = 'none';
+  } else if (event.target.classList.contains('js-remove-from-favorite')) {
+    const cocktailName = elParent.children[0].textContent;
+
+    let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
+    favorites = favorites.filter(drink => drink.strDrink !== cocktailName);
+
+    removeFromLS('FavoriteCocktails', favorites);
+    refs.gallery.innerHTML = '';
+    createCocktail(favorites);
+
+    const btnAddCocktail = document.querySelectorAll('.js_btn_fav_add');
+    for (let btn of btnAddCocktail) {
+      btn.style.display = 'none';
+    }
+
+    const btnRemove = elParent.children[4].children[1];
+    btnRemove.style.display = 'none';
+    const btnAdd = elParent.children[4].children[0];
+    btnAdd.style.display = 'flex';
   }
 }
 

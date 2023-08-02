@@ -5,7 +5,7 @@ export function openModalWindow(e) {
     const scrollY =
       document.documentElement.style.getPropertyValue('--scroll-y');
     const body = document.body;
-    body.style.position = 'fixed';
+    // body.style.position = 'fixed';
     body.style.top = `-${scrollY}`;
 
     let closeModal = document.querySelector('[data-modal-close]');
@@ -56,7 +56,7 @@ export function openModalIngredient(e) {
     const scrollY =
       document.documentElement.style.getPropertyValue('--scroll-y');
     const body = document.body;
-    body.style.position = 'fixed';
+    // body.style.position = 'fixed';
     body.style.top = `-${scrollY}`;
 
     let closeModal = document.querySelector('[data-modal-ingredient-close]');

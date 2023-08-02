@@ -20,10 +20,16 @@
 }
 .modal-container-mobile{
   display: block;
+  padding: 20px;
 }
 
 .modal-container {
   display: none;
+}
+
+.btn-bottom-wrapper-mobile {
+  display: flex;
+  justify-content: center;
 }
 
 .modal {
