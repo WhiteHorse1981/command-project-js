@@ -1,18 +1,14 @@
-import { loadFromLS, removeFromLS, saveToLS } from './js/localSt.js';
+import { removeFromLS, saveToLS } from './js/localSt.js';
 import { callMobileMenu } from './js/menuMobile.js';
 import { openModalWindow, openModalIngredient } from './js/modalWindow.js';
 import {
   fetchCocktails,
-  fetchLetterCocktails,
-  fetchRandomCocktails,
   fetchIngredientCocktails,
   fetchNameIngredientCocktail,
 } from './js/fetchCocktails';
 import {
   createCocktail,
   createIngredientCocktail,
-  createMarkup,
-  createMarkupDesktop,
   createIngredientCard,
 } from './js/createMarkap.js';
 
@@ -27,7 +23,6 @@ const refs = {
   modalCreateCocktail: document.querySelector('.modal-create-cocktail'),
   modal: document.querySelector('.modal'),
   modalCreateIngredient: document.querySelector('.modal-create-ingredient'),
-  // btnFavRemove: document.querySelector('.js_btn_fav_remove'),
   btnLS: document.querySelector('.add-descr'),
   titleContainer1: document.querySelector('.title-1'),
   titleContainer3: document.querySelector('.title-3'),
@@ -46,6 +41,10 @@ refs.modal.addEventListener('click', openModalWindow);
 refs.gallery.addEventListener('click', openModalIngredient);
 refs.modal.addEventListener('click', openModalIngredient);
 refs.modal.addEventListener('click', onClickIngredientBtn);
+refs.modalCreateIngredient.addEventListener(
+  'click',
+  saveAndRemoveFavoritIngredientsLSFavorites
+);
 refs.gallery.addEventListener('click', onClickCocktailBtn);
 refs.modal.addEventListener(
   'click',
@@ -56,53 +55,10 @@ refs.modal.addEventListener(
   addAndremoveFavoritCocktailsLStoModalMobile
 );
 
-// ======================================================================================
-
-//====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ =============================================================
+//====================ФУНКЦИЯ ОТКРЫТИЯ МОБИЛЬНОГО МЕНЮ НА СТРАНИЦЕ favorites.html ===================================
 callMobileMenu();
 
-// function onSearchForm(event) {
-//   event.preventDefault();
-// }
-
-// let cocktailsFavorites = [];
-
-// BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
-
-// let cocktailsFavorites = [];
-
-// function loadLSCocktails() {
-//   if (loadFromLS('FavoriteCocktails') === null) {
-//     saveToLS('FavoriteCocktails', '');
-//   } else {
-//     let arr = loadFromLS('FavoriteCocktails');
-//     const fetches = arr.map(cocktailName => {
-//       return fetch(`${BASE_URL}s=${cocktailName}`).then(res => res.json());
-//     });
-//     if (!arr || arr?.length === 0) {
-//       refs.gallery.innerHTML =
-//         "<div class='container'><h2 class='title-favorite-cocktails'>Sorry, you haven't chosen your favorite cocktails yet.</h2></div >";
-//     }
-//     if (arr) {
-//       // const titleNoCocktails = document.querySelector('.title-cocktails-now');
-//       // titleNoCocktails.style.display = 'none';
-//       Promise.all(fetches).then(arr => {
-//         arr = arr?.map(obj => {
-//           return obj.drinks[0];
-//         });
-//         cocktailsFavorites.push(...arr);
-//         //console.log(arr);
-//         createCocktail(cocktailsFavorites);
-//         const btnAdd = document.querySelectorAll('.js_btn_fav_add');
-//         for (let btn of btnAdd) {
-//           btn.style.display = 'none';
-//         }
-//         // addSvgUseHearts();
-//       });
-//     }
-//   }
-// }
-
+//================== ФУНКЦИЯ ПОИСКА КОКТЕЛЯ СРЕДИ КОКТЕЛЕЙ ФАВОРИТОВ НА СТРАНИЦЕ favorites.html =====================
 let favorites = JSON.parse(localStorage.getItem('FavoriteCocktails'));
 
 function onSearchFormCoctailsLS(event) {
@@ -112,7 +68,6 @@ function onSearchFormCoctailsLS(event) {
 
   try {
     const cocktailName = event.currentTarget.searchQuery.value.trim();
-    console.log(cocktailName);
 
     const newCocktailsArray = favorites.filter(
       favorites => favorites.strDrink === cocktailName
@@ -143,6 +98,7 @@ function loadLSCocktails() {
   }
 }
 
+//==================== УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ МОДАЛЬНОГО ОКНА НА СТРАНИЦЕ favorites.html =====================
 async function removeLSFavoritCocktailLS(event) {
   const elParent = event.target.closest('.gallery-item');
 
@@ -160,6 +116,48 @@ async function removeLSFavoritCocktailLS(event) {
   }
 }
 
+//==================== СОХРАНЯЕТ И УДАЛЯЕТ ИНГРИДИЕНТЫ В LS ИЗ МОДАЛЬНОГО ОКНА НА СТРАНИЦЕ favorites.html=====================
+let favoriteIngredient;
+if (JSON.parse(localStorage.getItem('FavoriteIngredient')) === null) {
+  favoriteIngredient = [];
+} else {
+  favoriteIngredient = JSON.parse(localStorage.getItem('FavoriteIngredient'));
+}
+
+async function saveAndRemoveFavoritIngredientsLSFavorites(event) {
+  const elParent = event.target.closest('.modal-container-ingredient');
+  if (event.target.classList.contains('js-add-to-favorite-ingredient-2')) {
+    const ingredientName = elParent.children[0].children[0].textContent;
+
+    const data = await fetchNameIngredientCocktail(ingredientName);
+    let ingredient = { ...data.ingredients[0] };
+
+    saveToLS('FavoriteIngredients', ingredient);
+
+    const btnRemove = elParent.children[0].children[5].children[1];
+    btnRemove.style.display = 'flex';
+    const btnAdd = elParent.children[0].children[5].children[0];
+    btnAdd.style.display = 'none';
+  } else if (
+    event.target.classList.contains('js-remove-from-favorite-ingredient')
+  ) {
+    const ingredientName = elParent.children[0].children[0].textContent;
+
+    let ingredients = JSON.parse(localStorage.getItem('FavoriteIngredients'));
+    ingredients = ingredients.filter(
+      ingredient => ingredient.strIngredient !== ingredientName
+    );
+
+    removeFromLS('FavoriteIngredients', ingredients);
+
+    const btnRemove = elParent.children[0].children[5].children[1];
+    btnRemove.style.display = 'none';
+    const btnAdd = elParent.children[0].children[5].children[0];
+    btnAdd.style.display = 'flex';
+  }
+}
+
+//==================== ФУНКЦИЯ ОТКРЫТИЯ МОДАЛЬНОГО ОКНА КОКТЕЙЛЛЯ НА СТРАНИЦЕ favorites.html =====================
 function onClickCocktailBtn(event) {
   refs.modalCreateCocktail.innerHTML = '';
   const elParent = event.target.closest('.gallery-item');
@@ -177,7 +175,6 @@ function onClickCocktailBtn(event) {
       }
 
       const btnAdd = document.querySelectorAll('.js-add-to-favorite-2');
-      console.log(btnAdd);
 
       for (let btn of btnAdd) {
         btn.style.display = 'none';
@@ -186,26 +183,24 @@ function onClickCocktailBtn(event) {
   }
 }
 
+//==================== ФУНКЦИЯ ОТКРЫТИЯ МОДАЛЬНОГО ОКНА ИНГРИДИЕНТА В МОДАЛЬНОМ ОКНЕ КОКТЕЛЯ НА СТРАНИЦЕ favorites.html ==========
 function onClickIngredientBtn(event) {
   refs.modalCreateIngredient.innerHTML = '';
   const nameIngredient = event.target.getAttribute('data-ingredient-name');
 
   fetchNameIngredientCocktail(nameIngredient).then(data => {
-    console.log(data.ingredients);
     createIngredientCard(data.ingredients);
 
     const btnRemove = document.querySelectorAll(
       '.js-remove-from-favorite-ingredient-2'
     );
-    console.log(btnRemove);
     for (let btn of btnRemove) {
       btn.style.display = 'none';
     }
   });
 }
 
-//==================== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ ДЕСКТОПНОГО И ПЛАНШЕТНОГО МОДАЛЬНОГО ОКНА =====================
-
+//========== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ ДЕСКТОПНОГО И ПЛАНШЕТНОГО МОДАЛЬНОГО ОКНА НА СТРАНИЦЕ favorites.html =================
 async function addAndremoveFavoritCocktailsLStoModalDesktop(event) {
   const elParent = event.target.closest('.modal-container');
   if (event.target.classList.contains('js-add-to-favorite')) {
@@ -257,8 +252,7 @@ async function addAndremoveFavoritCocktailsLStoModalDesktop(event) {
   }
 }
 
-//==================== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ МОБИЛЬНОГО МОДАЛЬНОГО ОКНА =====================
-
+//====== СОХРАНЯЕТ И УДАЛЯЕТ КОКТЕЙЛИ В LS ИЗ МОБИЛЬНОГО МОДАЛЬНОГО ОКНА НА СТРАНИЦЕ favorites.html ===========================
 async function addAndremoveFavoritCocktailsLStoModalMobile(event) {
   const elParent = event.target.closest('.modal-container-mobile');
   if (event.target.classList.contains('js-add-to-favorite')) {
@@ -302,7 +296,7 @@ async function addAndremoveFavoritCocktailsLStoModalMobile(event) {
   }
 }
 
-// ==================== ТЕМНАЯ ТЕМА =========================================
+// ==================== ТЕМНАЯ ТЕМА ================================================================================
 document.addEventListener('DOMContentLoaded', () => {
   init();
 });
@@ -329,6 +323,7 @@ function readLSTheme() {
 
 readLSTheme();
 
+//======= ФУНКЦИЯ СОХРАНЕНИЯ ПОЗИЦИИ КНОПКИ ВКЛЮЧЕНИЯ ТЕМНОЙ ТЕМЫ ПОСЛЕ ПЕРЕЗАГРУЗКИ СТРАНИЦЫ ==============================
 const btnThemePosition = localStorage.getItem('theme');
 
 function saveButtonPositionDarkTheme() {
@@ -379,6 +374,7 @@ if (isMobile.any()) {
   body.classList.add('mouse');
 }
 
+//=========== Открытие меню нажатием на стрелку для планшетов ================//
 function onClickMenuHeader() {
   const subMenu = document.querySelector('.favorite-wrapper');
   const thisArrow = document.querySelector('.menu-arrow');
@@ -387,6 +383,7 @@ function onClickMenuHeader() {
   thisArrow.classList.toggle('active');
 }
 
+//=========== Открытие меню нажатием на стрелку для мобилных устройств ================//
 function onClickMobileMenuHeader() {
   const subMenu = document.querySelector('.mobile-favorite-list');
   const thisArrow = document.querySelector('.arrow-mobile');

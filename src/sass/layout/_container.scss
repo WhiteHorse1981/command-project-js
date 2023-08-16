@@ -4,8 +4,42 @@
   padding-left: 16px;
   padding-right: 16px;
 }
+.ingredient-box {
+  min-width: 335px;
+  // flex-basis: calc(50% - 30px);
+  margin-top: 32px;
+  margin-left: 15px;
+  border: 1px solid #fd5103;
+}
 
+.ingredient-title-card {
+  color: var(--text-color);
+}
 
+.ingredient-title-card {
+  margin-bottom: 28px;
+}
+
+.ingredient-alcohol {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.subtitle-ingredient {
+  color: #5F6775;
+  color: var(--text-color-subtitle);
+  margin-bottom: 28px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.ingredient-box-second {
+  padding: 20px;
+}
 
 .js_btn_fav_add .svg-add {
   display: block;
@@ -37,7 +71,7 @@
   .cocktails-container {
     min-height: 100%;
     margin-top: 60px;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
   }
 
   .title-error {
@@ -196,7 +230,7 @@
 .cocktails-container {
   min-height: 100%;
   margin-top: 110px;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
   .container {

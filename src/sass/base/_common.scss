@@ -3,6 +3,7 @@
 :root {
   background-color: #FFFFFF;
   --text-color: #2f3542;
+  --text-color-subtitle: #5F6775;
   --bcg-color-container: #ffffff;
   --bcg-color-container-mobile: #ffffff;
   --bcg-color-btn-input: #ffffff;
@@ -14,6 +15,7 @@
 :root[theme='dark'] {
   background-color: #2f3542;
   --text-color: #FFFFFF;
+  --text-color-subtitle: #ffffff;
   --bcg-color-container: #4c4b4b;
   --bcg-color-container-mobile: #202025;
   --bcg-color-btn-input: #ffffff;

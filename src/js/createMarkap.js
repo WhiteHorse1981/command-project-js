@@ -211,8 +211,7 @@ export function createIngredientCocktail(ingredients) {
         <button type="button" class="add-favorite modal-btn js-add-to-favorite js-add-to-favorite-2">Add To Favorite</button>
         <button type="button" class="add-favorite modal-btn js-remove-from-favorite">Remove from favorite</button>
       </div>
-    </div>
-    
+    </div>   
       `;
     })
     .join('');
@@ -227,15 +226,15 @@ export function createIngredientCard(ingredients) {
       const { strIngredient, strType, strDescription, strAlcohol } = ingredient;
 
       return `
-    <div class="ingredient-backdrop is-hidden">
+    <div class="ingredient-backdrop is-hidden modal-container-ingredient">
       <div class="ingredient-modal">
         <h3 class="ingredient-title">${strIngredient}</h3>
-        <h4 class="ingredient-subtitle">${strType} :</h4>
+        <h4 class="ingredient-subtitle">${strType}</h4>
         <div class="horiontal-line"></div>
         <p class="ingredient-description">${strDescription}</p>
         <p class="ingredient-alcohol">Alcohol - ${strAlcohol}</p>
         <div class="btn-bottom-wrapper">
-          <button type="button" class="add-favorite modal-btn js-add-to-favorite-ingredient">Add To Favorite</button>
+          <button type="button" class="add-favorite modal-btn js-add-to-favorite-ingredient js-add-to-favorite-ingredient-2">Add To Favorite</button>
           <button type="button" class="add-favorite modal-btn js-remove-from-favorite-ingredient js-remove-from-favorite-ingredient-2">Remove from favorite</button>
         </div>
       </div>
@@ -245,6 +244,44 @@ export function createIngredientCard(ingredients) {
     .join('');
   const modal = document.querySelector('.modal-create-ingredient');
   modal.insertAdjacentHTML('beforeend', markup);
+}
+// ================== ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ИНГРИДИЕНТА НА СТРАНИЦЕ ingredient.html =======================
+export function createIngredient(ingredients) {
+  const iconHeart1 = document.querySelector('.div-icon-heart1');
+  const iconHeart2 = document.querySelector('.div-icon-heart2');
+  const useHeart1 = iconHeart1.href.baseVal;
+  const useHeart2 = iconHeart2.href.baseVal;
+  const markup = ingredients
+    .map(ingredient => {
+      const { strIngredient, strType } = ingredient;
+
+      return `
+    <div class="ingredient-box">
+      <div class="ingredient-box-second">
+        <h3 class="ingredient-title-card">${strIngredient}</h3>
+        <h4 class="subtitle-ingredient">${strType}</h4>
+        <div class="btn-bottom-wrapper">
+          <button type="button" class="info-btn-descr info-btn js-learn-btn js-btn-modal-ingredient">Learn more</button>
+          <button type="button" class="add-descr add-favorite modal-btn js-add-to-favorite-ingredient">
+            Add To
+            <svg class="icon-svg svg-add" width="17" height="16">
+              <use class="use-heart1" href='${useHeart1}'></use>
+            </svg>
+          </button>
+          <button type="button" class="add-descr add-favorite js-remove-from-favorite-ingredient js-remove-from-favorite-ingredient-2">
+            Remove
+            <svg class="icon-svg svg-remove" width="17" height="16">
+              <use class="use-heart1" href='${useHeart2}'></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+      `;
+    })
+    .join('');
+  const gallery = document.querySelector('.gallery');
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 // ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (ВЫПЫДАЮЩИЙ СПИСОК)=======================
