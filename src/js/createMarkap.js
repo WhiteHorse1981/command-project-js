@@ -58,6 +58,9 @@ export function createCocktail(cocktails) {
 
 // ==================ФУНЦИЯ ДОБАВЛЕНИЯ РАЗМЕТКИ ИНГРИДИЕНТОВ В МОДАЛЬНОМ ОКНЕ=======================
 export function createIngredientCocktail(ingredients) {
+  const iconStar = document.querySelector('.div-icon-star');
+  const useStar = iconStar.href.baseVal;
+
   const markup = ingredients
     .map(ingredient => {
       const {
@@ -94,49 +97,94 @@ export function createIngredientCocktail(ingredients) {
           <h3 class="modal-ingredients__header">INGREDIENTS</h3>
           <h4 class="modal-ingredients__subheader">Per cocktail:</h4>
           <ul class="modal-ingredients__list">
-            <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient1}">
+              <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient1}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient1}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient2}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient2}
               </li>
               <li a class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient3}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient3}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient4}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient4}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient5}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient5}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient6}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient6}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient7}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient7}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient8}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient8}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient9}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient9}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient10}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient10}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient11}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient11}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient12}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient12}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient13}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient13}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient14}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient14}
               </li>
               <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient15}">
+                <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
                 ${strIngredient15}
               </li>
           </ul>
@@ -156,48 +204,93 @@ export function createIngredientCocktail(ingredients) {
           <h4 class="modal-ingredients__subheader">Per cocktail:</h4>
           <ul class="modal-ingredients__list">
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient1}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+              </svg>
               ${strIngredient1}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient2}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient2}
             </li>
             <li a class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient3}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient3}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient4}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient4}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient5}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient5}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient6}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient6}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient7}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient7}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient8}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient8}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient9}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient9}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient10}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient10}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient11}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient11}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient12}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient12}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient13}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient13}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient14}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient14}
             </li>
             <li class="modal-ingredient-btn js-btn-modal-ingredient" data-ingredient-name="${strIngredient15}">
+              <svg class="icon-svg-star svg-star" width="17" height="16">
+                  <use class="use-star" href='${useStar}'></use>
+                </svg>
               ${strIngredient15}
             </li>
           </ul>

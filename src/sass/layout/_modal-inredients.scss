@@ -11,6 +11,17 @@
     padding: 20px;
 }
 
+.svg-star {
+    fill: #202025;
+    margin-right: 5px;
+}
+
+.modal-ingredient-btn:hover .svg-star .use-star, 
+.modal-ingredient-btn:focus .svg-star .use-star, 
+.modal-ingredient-btn:active .svg-star .use-star {
+    fill: #FD5103;
+}
+
 .modal-container__img {
     width: 100%;
     height: auto;
@@ -23,9 +34,16 @@
 }
 
 .modal-ingredient-btn {
+    display: flex;
     margin-bottom: 2px;
     color: #202025;
     cursor: pointer;
+}
+
+.modal-ingredient-btn:hover,
+.modal-ingredient-btn:focus,
+.modal-ingredient-btn:active {
+    color: #FD5103;
 }
 
 .modal-close-btn {
